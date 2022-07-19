@@ -4,12 +4,11 @@ using namespace std;
 int ascii_a = 97;
 int MAX_WORD_LENGTH = 100;
 
-typedef Node* NodePtr;
-
 struct Node {
     Node* children [26];
     bool is_end_of_word;
 };
+typedef Node* NodePtr;
 
 class WordTree {
     public:
@@ -58,6 +57,7 @@ WordTree::WordTree(char* inputFile) {
 }
 
 bool WordTree::is_word(char* w) {
+    if (!root) return 0;
     char* i = w;
     NodePtr branch = root;
     NodePtr next_branch = root;
@@ -66,8 +66,8 @@ bool WordTree::is_word(char* w) {
     while (*i) {
         branch = next_branch;
         letter_idx = *(i++)-ascii_a;
-        if (branch->children[letter_idx]) next_branch = branch->children[letter_idx];
-        else return 0;
+        next_branch = branch->children[letter_idx];
+        if (!next_branch) return 0;
     }
     if (branch->is_end_of_word) return 1;
     return 0;
