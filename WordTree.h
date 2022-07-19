@@ -14,9 +14,12 @@ struct Node {
 class WordTree {
     public:
         NodePtr root;
+
         void add_word(char* word);
+        void delete_subtree(NodePtr subtree);
         WordTree();
         WordTree(char* inputFile);
+        ~WordTree();
         bool is_word(char* w);
 };
 
@@ -31,6 +34,10 @@ void WordTree::add_word(char* word) {
         branch = next_branch;
     }
     branch->is_end_of_word = 1;
+}
+
+void WordTree::delete_subtree(NodePtr subtree) {
+    if (subtree) for (int i=0; i<26; i++) delete_subtree(subtree->children[i]);
 }
 
 WordTree::WordTree() {
@@ -64,4 +71,8 @@ bool WordTree::is_word(char* w) {
     }
     if (branch->is_end_of_word) return 1;
     return 0;
+}
+
+WordTree::~WordTree() {
+    delete_subtree(root);
 }
