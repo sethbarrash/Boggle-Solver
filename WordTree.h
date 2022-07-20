@@ -15,6 +15,7 @@ class WordTree {
         NodePtr root;
 
         void add_word(char* word);
+        void add_file(char* inputFile);
         void delete_subtree(NodePtr subtree);
         WordTree();
         WordTree(char* inputFile);
@@ -34,15 +35,7 @@ void WordTree::add_word(char* word) {
     branch->is_end_of_word = 1;
 }
 
-void WordTree::delete_subtree(NodePtr subtree) {
-    if (subtree) for (int i=0; i<26; i++) delete_subtree(subtree->children[i]);
-}
-
-WordTree::WordTree() {
-    root = new Node;
-}
-
-WordTree::WordTree(char* inputFile) {
+void WordTree::add_file(char* inputFile) {
     ifstream in_stream;
     in_stream.open(inputFile);
 
@@ -52,7 +45,19 @@ WordTree::WordTree(char* inputFile) {
         add_word(word);
     }
 
-    in_stream.close();
+    in_stream.close();    
+}
+
+void WordTree::delete_subtree(NodePtr subtree) {
+    if (subtree) for (int i=0; i<26; i++) delete_subtree(subtree->children[i]);
+}
+
+WordTree::WordTree() {
+    root = new Node;
+}
+
+WordTree::WordTree(char* inputFile) {
+    add_file(inputFile);
 }
 
 bool WordTree::is_word(char* w) {
@@ -63,10 +68,10 @@ bool WordTree::is_word(char* w) {
     int letter_idx;
     
     while (*i) {
-        branch = next_branch;
         letter_idx = *(i++)-ascii_a;
         next_branch = branch->children[letter_idx];
-        if (!next_branch) return 0;
+        if (next_branch) branch = next_branch;
+        else return 0;
     }
     if (branch->is_end_of_word) return 1;
     return 0;
