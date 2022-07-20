@@ -1,4 +1,7 @@
+#include <queue>
 #include "WordTree.h"
+
+using std::queue;
 
 int XADJ [8] = {-1, -1, -1,  0,  0,  1,  1,  1};
 int YADJ [8] = {-1,  0,  1, -1,  1, -1,  0,  1};
@@ -16,7 +19,18 @@ struct BoggleNode {
 
 typedef BoggleNode* BoggleNodePtr;
 
-void populateChildren(char** board, BoggleNodePtr b) {
+class BoggleSolver {
+    public:
+        char** board;
+        WordTree t;
+        queue<BoggleNodePtr> q;
+        BoggleNodePtr btree;
+
+        void populateChildren(BoggleNodePtr b);
+        BoggleNodePtr buildBoggleTree(int x0, int y0);
+};
+
+void BoggleSolver::populateChildren(BoggleNodePtr b) {
     int i,j,xnew,ynew,letter_idx;
     char lnew;
     BoggleNodePtr bk;
@@ -32,6 +46,8 @@ void populateChildren(char** board, BoggleNodePtr b) {
             if (b->branch->children[letter_idx]) {
                 b->children[k] = new BoggleNode;
                 bk = b->children[k];
+
+                q.push(bk);
                 bk->letter = lnew;
                 bk->x = i;
                 bk->y = j;
@@ -43,7 +59,7 @@ void populateChildren(char** board, BoggleNodePtr b) {
     }
 }
 
-BoggleNodePtr buildBoggleTree(char** board, WordTree t, int x0, int y0) {
+BoggleNodePtr BoggleSolver::buildBoggleTree(int x0, int y0) {
     BoggleNodePtr root = new BoggleNode;
     BoggleNodePtr b = root;
     root->letter = board[x0][y0];
@@ -52,7 +68,12 @@ BoggleNodePtr buildBoggleTree(char** board, WordTree t, int x0, int y0) {
     int letter_idx = root->letter-ascii_a;
     root->branch = t.root->children[letter_idx];
     
-    // Populate children in either breadth-first or depth-first fashion
+    populateChildren(root);
+    while (!q.empty()) {
+        b = q.front();
+        q.pop();
+        populateChildren(b);
+    }
 
     return root;
 }
