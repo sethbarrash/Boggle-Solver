@@ -26,11 +26,10 @@ void WordTree::add_word(char* word) {
     char*   letter = word;
     NodePtr branch = root;
     int letter_idx;
-    while (letter) {
-        letter_idx = *(letter++) - ascii_a;
-        NodePtr next_branch = branch->children[letter_idx];
-        if (!next_branch) next_branch = new Node;
-        branch = next_branch;
+    while (*letter) {
+        letter_idx = *(letter++)-ascii_a;
+        if (!branch->children[letter_idx]) branch->children[letter_idx] = new Node;
+        branch = branch->children[letter_idx];
     }
     branch->is_end_of_word = 1;
 }
@@ -40,7 +39,7 @@ void WordTree::delete_subtree(NodePtr subtree) {
 }
 
 WordTree::WordTree() {
-    root = NULL;
+    root = new Node;
 }
 
 WordTree::WordTree(char* inputFile) {
