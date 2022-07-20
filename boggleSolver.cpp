@@ -23,11 +23,14 @@ class BoggleSolver {
     public:
         char** board;
         WordTree t;
-        queue<BoggleNodePtr> q;
         BoggleNodePtr btree;
+        queue<BoggleNodePtr> q;
+        // List of words
 
+        // bool is_ancestor(BoggleNodePtr b, int x0, int y0);
         void populateChildren(BoggleNodePtr b);
         BoggleNodePtr buildBoggleTree(int x0, int y0);
+        // Add tree to list of words (and paths?)
 };
 
 void BoggleSolver::populateChildren(BoggleNodePtr b) {
