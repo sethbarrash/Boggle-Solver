@@ -47,7 +47,6 @@ void BoggleSolver::populateChildren(BoggleNodePtr b) {
                 b->children[k] = new BoggleNode;
                 bk = b->children[k];
 
-                q.push(bk);
                 bk->letter = lnew;
                 bk->x = xnew;
                 bk->y = ynew;
@@ -78,6 +77,7 @@ BoggleTree BoggleSolver::buildBoggleTree(int x0, int y0) {
         b = q.front();
         q.pop();
         populateChildren(b);
+        for (int k=0; k<8; k++) if (b->children[k]) q.push(b->children[k]);
     }
 
     return bt;
