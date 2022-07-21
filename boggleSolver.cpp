@@ -21,6 +21,14 @@ typedef BoggleNode* BoggleNodePtr;
 
 bool is_ancestor(BoggleNodePtr b, int x0, int y0);
 
+class BoggleTree {
+    public:
+        BoggleNodePtr root;
+        void delete_subtree(BoggleNodePtr t);
+        BoggleTree();
+        ~BoggleTree();
+};
+
 class BoggleSolver {
     public:
         char** board;
@@ -34,6 +42,18 @@ class BoggleSolver {
         // harvest(BoggleTree btree, List);
         // List findWords();
 };
+
+void BoggleTree::delete_subtree(BoggleNodePtr t) {
+    for (int k=0; k<8; k++) delete_subtree(t->children[k]);
+}
+
+BoggleTree::BoggleTree() {
+    root = NULL;
+}
+
+BoggleTree::~BoggleTree() {
+    delete_subtree(root);
+}
 
 BoggleSolver::BoggleSolver(char** board, WordTree t) {
     board = board;
