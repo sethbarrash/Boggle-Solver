@@ -19,6 +19,8 @@ struct BoggleNode {
 
 typedef BoggleNode* BoggleNodePtr;
 
+bool is_ancestor(BoggleNodePtr b, int x0, int y0);
+
 class BoggleSolver {
     public:
         char** board;
@@ -27,11 +29,18 @@ class BoggleSolver {
         queue<BoggleNodePtr> q;
         // List of words
 
-        // bool is_ancestor(BoggleNodePtr b, int x0, int y0);
         void populateChildren(BoggleNodePtr b);
         BoggleNodePtr buildBoggleTree(int x0, int y0);
         // Add tree to list of words (and paths?)
 };
+
+bool is_ancestor(BoggleNodePtr b, int x0, int y0) {
+    while (b->parent) {
+        b = b->parent;
+        if (b->x == x0 && b->y == y0) return 1;
+    }
+    return 0;
+}
 
 void BoggleSolver::populateChildren(BoggleNodePtr b) {
     int i,j,xnew,ynew,letter_idx;
@@ -43,7 +52,7 @@ void BoggleSolver::populateChildren(BoggleNodePtr b) {
         j = YADJ[k];
         xnew = b->x+i;
         ynew = b->y+j;
-        if (xnew >= 0 && ynew >= 0 /* Check that it hasn't been used before */) {
+        if (xnew >= 0 && ynew >= 0 && !is_ancestor(b,xnew,ynew)) {
             lnew = board[xnew][ynew];
             letter_idx = lnew-ascii_a;
             if (b->branch->children[letter_idx]) {
@@ -52,8 +61,8 @@ void BoggleSolver::populateChildren(BoggleNodePtr b) {
 
                 q.push(bk);
                 bk->letter = lnew;
-                bk->x = i;
-                bk->y = j;
+                bk->x = xnew;
+                bk->y = ynew;
                 bk->parent = b;
                 bk->branch = b->branch->children[letter_idx];
                 bk->is_end_of_word = bk->branch->is_end_of_word;
