@@ -13,12 +13,21 @@ class BoggleSolver {
         queue<BoggleNodePtr> q;
         // List of words
 
-
+        void add_board(char** board);
+        void add_WordTree(WordTree t);
         void populateChildren(BoggleNodePtr b);
         BoggleNodePtr buildBoggleTree(int x0, int y0);
         // harvest(BoggleTree btree, List);
         // List findWords();
 };
+
+void add_board(char** board) {
+    board = board;
+}
+
+void add_WordTree(WordTree t) {
+    t = t;
+}
 
 void BoggleSolver::populateChildren(BoggleNodePtr b) {
     int i,j,xnew,ynew,letter_idx;
