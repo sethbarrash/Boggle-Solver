@@ -28,15 +28,16 @@ class BoggleSolver {
         queue<BoggleNodePtr> q;
         // List of words
 
-        BoggleSolver(char** board);
+        BoggleSolver(char** board, WordTree t);
         void populateChildren(BoggleNodePtr b);
         BoggleNodePtr buildBoggleTree(int x0, int y0);
         // harvest(BoggleTree btree, List);
         // List findWords();
 };
 
-BoggleSolver::BoggleSolver(char** board) {
+BoggleSolver::BoggleSolver(char** board, WordTree t) {
     board = board;
+    t = t;
 }
 
 bool is_ancestor(BoggleNodePtr b, int x0, int y0) {
