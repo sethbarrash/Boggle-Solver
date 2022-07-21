@@ -1,33 +1,10 @@
 #include <queue>
-#include "WordTree.h"
+#include "BoggleTree.h"
 
 using std::queue;
 
 int XADJ [8] = {-1, -1, -1,  0,  0,  1,  1,  1};
 int YADJ [8] = {-1,  0,  1, -1,  1, -1,  0,  1};
-
-struct BoggleNode {
-    char letter;
-    int x;
-    int y;
-    char tentative_word [17];
-    BoggleNode* children [8];
-    BoggleNode* parent;
-    Node* branch;
-    bool is_end_of_word;
-};
-
-typedef BoggleNode* BoggleNodePtr;
-
-bool is_ancestor(BoggleNodePtr b, int x0, int y0);
-
-class BoggleTree {
-    public:
-        BoggleNodePtr root;
-        void delete_subtree(BoggleNodePtr t);
-        BoggleTree();
-        ~BoggleTree();
-};
 
 class BoggleSolver {
     public:
@@ -36,37 +13,12 @@ class BoggleSolver {
         queue<BoggleNodePtr> q;
         // List of words
 
-        BoggleSolver(char** board, WordTree t);
+
         void populateChildren(BoggleNodePtr b);
         BoggleNodePtr buildBoggleTree(int x0, int y0);
         // harvest(BoggleTree btree, List);
         // List findWords();
 };
-
-void BoggleTree::delete_subtree(BoggleNodePtr t) {
-    for (int k=0; k<8; k++) delete_subtree(t->children[k]);
-}
-
-BoggleTree::BoggleTree() {
-    root = NULL;
-}
-
-BoggleTree::~BoggleTree() {
-    delete_subtree(root);
-}
-
-BoggleSolver::BoggleSolver(char** board, WordTree t) {
-    board = board;
-    t = t;
-}
-
-bool is_ancestor(BoggleNodePtr b, int x0, int y0) {
-    while (b->parent) {
-        b = b->parent;
-        if (b->x == x0 && b->y == y0) return 1;
-    }
-    return 0;
-}
 
 void BoggleSolver::populateChildren(BoggleNodePtr b) {
     int i,j,xnew,ynew,letter_idx;
