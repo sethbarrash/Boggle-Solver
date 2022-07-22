@@ -1,7 +1,5 @@
 #include "WordTree.h"
 
-typedef BoggleNode* BoggleNodePtr;
-
 struct BoggleNode {
   char letter;
   int x;
@@ -12,6 +10,8 @@ struct BoggleNode {
   Node* branch;
   bool is_end_of_word;
 };
+
+typedef BoggleNode* BoggleNodePtr;
 
 bool is_ancestor(BoggleNodePtr b, int x0, int y0);
 

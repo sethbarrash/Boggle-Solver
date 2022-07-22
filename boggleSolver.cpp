@@ -10,7 +10,6 @@ class BoggleSolver {
     public:
         char** board;
         WordTree t;
-        queue<BoggleNodePtr> q;
         // List of words
 
         void add_board(char** board);
@@ -60,12 +59,14 @@ void BoggleSolver::populateChildren(BoggleNodePtr b) {
 }
 
 BoggleTree BoggleSolver::initialize_BoggleTree(int x, int y, char l) {
-    BoggleNodePtr root = new BoggleNode;
-    root->letter = board[x][y];
-    root->x = x;
-    root->y = y;
-    int letter_idx = root->letter-ascii_a;
-    root->branch = t.root->children[letter_idx];
+    BoggleTree bt;
+    bt.root = new BoggleNode;
+    bt.root->letter = board[x][y];
+    bt.root->x = x;
+    bt.root->y = y;
+    int letter_idx = bt.root->letter-ascii_a;
+    bt.root->branch = t.root->children[letter_idx];
+    return bt;
 }
 
 BoggleTree BoggleSolver::buildBoggleTree(int x0, int y0) {
@@ -73,6 +74,7 @@ BoggleTree BoggleSolver::buildBoggleTree(int x0, int y0) {
     BoggleTree bt = initialize_BoggleTree(x0,y0,l);
     BoggleNodePtr b = bt.root;
 
+    queue<BoggleNodePtr> q;
     populateChildren(b);
     while (!q.empty()) {
         b = q.front();
