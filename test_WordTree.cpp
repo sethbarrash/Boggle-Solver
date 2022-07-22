@@ -21,4 +21,6 @@ int main() {
     t.add_file(input_file);
     char bathrooms [20] = "bathrooms";
     assert(t.is_word(bathrooms));
+
+    WordTree t1 = WordTree(input_file);
 }

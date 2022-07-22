@@ -10,6 +10,11 @@ struct Node {
 };
 typedef Node* NodePtr;
 
+Node* new_node() {
+    Node x = (Node){.children={0}, .is_end_of_word=0};
+    return &x;
+}
+
 class WordTree {
     public:
         NodePtr root;
@@ -29,7 +34,7 @@ void WordTree::add_word(char* word) {
     int letter_idx;
     while (*letter) {
         letter_idx = *(letter++)-ascii_a;
-        if (!branch->children[letter_idx]) branch->children[letter_idx] = new Node;
+        if (!branch->children[letter_idx]) branch->children[letter_idx] = new_node();
         branch = branch->children[letter_idx];
     }
     branch->is_end_of_word = 1;
@@ -53,10 +58,11 @@ void WordTree::delete_subtree(NodePtr subtree) {
 }
 
 WordTree::WordTree() {
-    root = new Node;
+    root = new_node();
 }
 
 WordTree::WordTree(char* inputFile) {
+    root = new_node();
     add_file(inputFile);
 }
 
