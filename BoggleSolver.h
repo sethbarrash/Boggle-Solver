@@ -6,6 +6,13 @@ using std::queue;
 int XADJ [8] = {-1, -1, -1,  0,  0,  1,  1,  1};
 int YADJ [8] = {-1,  0,  1, -1,  1, -1,  0,  1};
 
+void add_children_to_queue(BoggleNodePtr bn, queue<BoggleNodePtr>& q) {
+    for (int k=0; k<8; k++) {
+        if (bn->children[k]) 
+            q.push(bn->children[k]);
+    }
+}
+
 class BoggleSolver {
     public:
         char board [4][4];
@@ -84,12 +91,12 @@ BoggleTree BoggleSolver::buildBoggleTree(int x0, int y0) {
 
     queue<BoggleNodePtr> q;
     populateChildren(b);
-    for (int k=0; k<8; k++) if (b->children[k]) q.push(b->children[k]);
+    add_children_to_queue(b,q);
     while (!q.empty()) {
         b = q.front();
         q.pop();
         populateChildren(b);
-        for (int k=0; k<8; k++) if (b->children[k]) q.push(b->children[k]);
+        add_children_to_queue(b,q);
     }
 
     return bt;
