@@ -84,6 +84,7 @@ BoggleTree BoggleSolver::buildBoggleTree(int x0, int y0) {
 
     queue<BoggleNodePtr> q;
     populateChildren(b);
+    for (int k=0; k<8; k++) if (b->children[k]) q.push(b->children[k]);
     while (!q.empty()) {
         b = q.front();
         q.pop();
