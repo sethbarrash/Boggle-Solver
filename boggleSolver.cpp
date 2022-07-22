@@ -12,6 +12,7 @@ class BoggleSolver {
         WordTree t;
         // List of words
 
+        BoggleSolver(char** board, WordTree t);
         void add_board(char** board);
         void add_WordTree(WordTree t);
         BoggleNodePtr create_child(BoggleNodePtr b, int x, int y, char l);
@@ -21,6 +22,11 @@ class BoggleSolver {
         // harvest(BoggleTree btree, List);
         // List findWords();
 };
+
+BoggleSolver::BoggleSolver(char** board, WordTree t) {
+    board = board;
+    t = t;
+}
 
 void add_board(char** board) {
     board = board;
