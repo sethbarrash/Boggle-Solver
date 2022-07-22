@@ -12,8 +12,7 @@ typedef Node* NodePtr;
 
 Node* new_node() {
     Node* x = new Node;
-    for (int k=0; k<26; k++) x->children[k]=0;
-    x->is_end_of_word = 0;
+    *x = {{0},0};
     return x;
 }
 
