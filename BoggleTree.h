@@ -13,6 +13,12 @@ struct BoggleNode {
 
 typedef BoggleNode* BoggleNodePtr;
 
+BoggleNode* new_BoggleNode() {
+  BoggleNode* x = new BoggleNode;
+  *x = {0, 0, 0, {0}, {0}, 0, 0, 0};
+  return x;
+}
+
 bool is_ancestor(BoggleNodePtr b, int x0, int y0);
 
 class BoggleTree {

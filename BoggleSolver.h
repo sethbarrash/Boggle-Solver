@@ -37,7 +37,7 @@ void add_WordTree(WordTree t) {
 }
 
 BoggleNodePtr BoggleSolver::create_child(BoggleNodePtr b, int x, int y, char l) {
-    BoggleNodePtr child = new BoggleNode;
+    BoggleNodePtr child = new_BoggleNode();
     child->letter = l;
     child->x = x;
     child->y = y;
@@ -66,7 +66,7 @@ void BoggleSolver::populateChildren(BoggleNodePtr b) {
 
 BoggleTree BoggleSolver::initialize_BoggleTree(int x, int y, char l) {
     BoggleTree bt;
-    bt.root = new BoggleNode;
+    bt.root = new_BoggleNode();
     bt.root->letter = board[x][y];
     bt.root->x = x;
     bt.root->y = y;
