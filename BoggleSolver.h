@@ -8,7 +8,7 @@ int YADJ [8] = {-1,  0,  1, -1,  1, -1,  0,  1};
 
 class BoggleSolver {
     public:
-        char (*board)[4];
+        char board [4][4];
         WordTree t;
         // List of words
 
@@ -23,17 +23,19 @@ class BoggleSolver {
         // List findWords();
 };
 
-BoggleSolver::BoggleSolver(char board [][4], WordTree t) {
-    board = board;
-    t = t;
+BoggleSolver::BoggleSolver(char input_board [][4], WordTree wt) {
+    for (int i=0; i<4; i++) 
+        for (int j=0; j<4; j++) board[i][j] = input_board[i][j];
+    t = wt;
 }
 
-void add_board(char (*board)[4]) {
-    board = board;
+void BoggleSolver::add_board(char (*input_board)[4]) {
+    for (int i=0; i<4; i++) 
+        for (int j=0; j<4; j++) board[i][j] = input_board[i][j];
 }
 
-void add_WordTree(WordTree t) {
-    t = t;
+void BoggleSolver::add_WordTree(WordTree wt) {
+    t = wt;
 }
 
 BoggleNodePtr BoggleSolver::create_child(BoggleNodePtr b, int x, int y, char l) {

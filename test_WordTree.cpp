@@ -18,9 +18,9 @@ int main() {
     assert(!t.is_word(eve));
 
     char input_file [100] = "boggleWords.txt";
+    WordTree t1 = WordTree(input_file);
     t.add_file(input_file);
     char bathrooms [20] = "bathrooms";
     assert(t.is_word(bathrooms));
 
-    WordTree t1 = WordTree(input_file);
 }
