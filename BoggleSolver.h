@@ -1,3 +1,4 @@
+#include <cstring>
 #include <list>
 #include <queue>
 #include "BoggleTree.h"
@@ -11,18 +12,36 @@ typedef list<char*> word_list;
 int XADJ [8] = {-1, -1, -1,  0,  0,  1,  1,  1};
 int YADJ [8] = {-1,  0,  1, -1,  1, -1,  0,  1};
 
+void harvest_node(BoggleNodePtr bn, word_list& wl, int depth) {
+    bn->word_so_far[depth] = bn->letter;
+    if (bn->is_end_of_word) wl.push_back(bn->word_so_far);
+    for (int k=0; k<8; k++) {
+        BoggleNodePtr bk = bn->children[k];
+        if (bk) {
+            strcpy(bk->word_so_far,bn->word_so_far);
+            harvest_node(bk, wl, depth+1);
+        }
+    }
+}
+
 word_list harvest(BoggleTree bt) {
     word_list wl;
     BoggleNodePtr bn = bt.root;
-    
-    if (bn->is_end_of_word) wl.push_back(bn->tentative_word);
-    for (int k=0; k<8; k++) harvest_node(bn->children[k], wl);
+    int depth = 0;
+    bn->word_so_far[depth] = bn->letter;
+    if (bn->is_end_of_word) wl.push_back(bn->word_so_far);
+
+    for (int k=0; k<8; k++) {
+        BoggleNodePtr bk = bn->children[k];
+        if (bk) {
+            strcpy(bk->word_so_far,bn->word_so_far);
+            harvest_node(bk, wl, depth+1);
+        }
+    }
+
+    return wl;
 }
 
-void harvest_node(BoggleNodePtr bn, word_list& wl) {
-    if (bn->is_end_of_word) wl.push_back(bn->tentative_word);
-    for (int k=0; k<8; k++) if (bn->children[k]) harvest_node(bn->children[k], wl);
-}
 
 void add_children_to_queue(BoggleNodePtr bn, queue<BoggleNodePtr>& q) {
     for (int k=0; k<8; k++) if (bn->children[k]) q.push(bn->children[k]);

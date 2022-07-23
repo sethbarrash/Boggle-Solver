@@ -18,5 +18,7 @@ int main() {
     assert(bt.root->children[4]->children[6]);
     assert(bt.root->children[6]->children[6]);
 
+    word_list wl = harvest(bt);
+
     return 0;
 }

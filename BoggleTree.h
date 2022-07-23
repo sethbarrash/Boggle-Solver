@@ -4,7 +4,7 @@ struct BoggleNode {
   char letter;
   int x;
   int y;
-  char tentative_word [17];
+  char word_so_far [17];
   BoggleNode* children [8];
   BoggleNode* parent;
   Node* branch;
