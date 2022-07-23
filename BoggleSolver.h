@@ -24,7 +24,7 @@ void harvest_node(BoggleNodePtr bn, word_list& wl, int depth) {
     }
 }
 
-word_list harvest(BoggleTree bt) {
+word_list harvest(BoggleTree& bt) {
     word_list wl;
     BoggleNodePtr bn = bt.root;
     int depth = 0;
@@ -99,7 +99,7 @@ void BoggleSolver::populateChildren(BoggleNodePtr b) {
 }
 
 BoggleTree BoggleSolver::initialize_BoggleTree(int x, int y, char l) {
-    BoggleTree bt;
+    BoggleTree bt = BoggleTree();
     bt.root = new_BoggleNode();
     bt.root->letter = board[x][y];
     bt.root->x = x;

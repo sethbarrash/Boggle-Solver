@@ -38,7 +38,9 @@ bool is_ancestor(BoggleNodePtr b, int x0, int y0) {
 }
 
 void BoggleTree::delete_subtree(BoggleNodePtr t) {
-  for (int k=0; k<8; k++) if (t->children[k]) delete_subtree(t->children[k]);
+  for (int k=0; k<8; k++) 
+    if (t->children[k]) 
+      delete_subtree(t->children[k]);
   delete t;
 }
 
