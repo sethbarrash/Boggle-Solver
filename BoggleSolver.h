@@ -5,8 +5,24 @@
 using std::list;
 using std::queue;
 
+// typedef list<char [MAX_WORD_LENGTH]> word_list;
+typedef list<char*> word_list;
+
 int XADJ [8] = {-1, -1, -1,  0,  0,  1,  1,  1};
 int YADJ [8] = {-1,  0,  1, -1,  1, -1,  0,  1};
+
+word_list harvest(BoggleTree bt) {
+    word_list wl;
+    BoggleNodePtr bn = bt.root;
+    
+    if (bn->is_end_of_word) wl.push_back(bn->tentative_word);
+    for (int k=0; k<8; k++) harvest_node(bn->children[k], wl);
+}
+
+void harvest_node(BoggleNodePtr bn, word_list& wl) {
+    if (bn->is_end_of_word) wl.push_back(bn->tentative_word);
+    for (int k=0; k<8; k++) if (bn->children[k]) harvest_node(bn->children[k], wl);
+}
 
 void add_children_to_queue(BoggleNodePtr bn, queue<BoggleNodePtr>& q) {
     for (int k=0; k<8; k++) if (bn->children[k]) q.push(bn->children[k]);
@@ -16,7 +32,6 @@ class BoggleSolver {
     public:
         char board [4][4];
         WordTree t;
-        list<char [MAX_WORD_LENGTH]> word_list;
 
         BoggleSolver(char board [][4], WordTree t);
         void add_board(char (*board)[4]);
