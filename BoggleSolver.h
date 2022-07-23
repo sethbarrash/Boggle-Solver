@@ -27,9 +27,7 @@ void harvest_node(BoggleNodePtr bn, word_list& wl, int depth) {
 word_list harvest(BoggleTree& bt) {
     word_list wl;
     BoggleNodePtr bn = bt.root;
-    int depth = 0;
-    bn->word_so_far[depth] = bn->letter;
-    harvest_node(bn, wl, depth+1);
+    harvest_node(bn, wl, 0);
 
     return wl;
 }
