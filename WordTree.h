@@ -1,8 +1,8 @@
 #include <fstream>
 using namespace std;
 
-int ascii_a = 97;
-int MAX_WORD_LENGTH = 100;
+const int ascii_a = 97;
+const int MAX_WORD_LENGTH = 100;
 
 struct Node {
     Node* children [26];
