@@ -29,15 +29,7 @@ word_list harvest(BoggleTree bt) {
     BoggleNodePtr bn = bt.root;
     int depth = 0;
     bn->word_so_far[depth] = bn->letter;
-    if (bn->is_end_of_word) wl.push_back(bn->word_so_far);
-
-    for (int k=0; k<8; k++) {
-        BoggleNodePtr bk = bn->children[k];
-        if (bk) {
-            strcpy(bk->word_so_far,bn->word_so_far);
-            harvest_node(bk, wl, depth+1);
-        }
-    }
+    harvest_node(bn, wl, depth+1);
 
     return wl;
 }
