@@ -55,6 +55,15 @@ int main() {
     BoggleSolver bs = BoggleSolver(board3,t);
     BoggleTree* bt;
     word_list wl;
+
+    BoggleTree bt00;
+    bs.initialize_BoggleTree(bt00,0,0);
+    bs.buildBoggleTree(bt00);
+    assert(bt00.root->children[4]);
+    assert(bt00.root->children[6]);
+    assert(bt00.root->children[7]);
+    assert(bt00.root->children[4]->children[6]);
+    assert(bt00.root->children[6]->children[6]);
     
     for (int i=0; i<4; i++) {
       for (int j=0; j<4; j++) {
@@ -65,13 +74,6 @@ int main() {
         delete bt;
       }
     }
-
-    // BoggleTree bt = bs.buildBoggleTree(0,0);
-    // assert(bt.root->children[4]);
-    // assert(bt.root->children[6]);
-    // assert(bt.root->children[7]);
-    // assert(bt.root->children[4]->children[6]);
-    // assert(bt.root->children[6]->children[6]);
 
 
     cout << "Words on this board:\n";
