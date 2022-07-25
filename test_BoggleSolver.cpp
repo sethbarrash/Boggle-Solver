@@ -32,17 +32,39 @@ int main() {
         {'d', 'f', 'b', 'a'}, 
         {'t', 'w', 'e', 'n'}
     };
+    char board1[4][4] = {
+        {'e', 'e', 'p', 't'}, 
+        {'a', 'r', 'a', 'u'}, 
+        {'w', 't', 'y', 'u'}, 
+        {'c', 'y', 'j', 'l'}
+    };
+    char board2[4][4] = {
+        {'w', 'a', 't', 'u'}, 
+        {'u', 'i', 'g', 'b'}, 
+        {'h', 't', 'y', 'z'}, 
+        {'e', 'i', 'd', 'o'}
+    };
+    char board3[4][4] = {
+        {'n', 't', 'o', 'b'}, 
+        {'f', 'a', 'x', 'm'}, 
+        {'r', 'o', 'e', 'g'}, 
+        {'r', 'n', 'h', 's'}
+    };
     char input_file [100] = "boggleWords.txt";
     WordTree t = WordTree(input_file);
-    BoggleSolver bs = BoggleSolver(board0,t);
+    BoggleSolver bs = BoggleSolver(board3,t);
     BoggleTree* bt;
     word_list wl;
     
-    bt = new BoggleTree;
-    bs.initialize_BoggleTree(*bt,2,0);
-    bs.buildBoggleTree(*bt);
-    harvest(*bt,wl);
-    delete bt;
+    for (int i=0; i<4; i++) {
+      for (int j=0; j<4; j++) {
+        bt = new BoggleTree;
+        bs.initialize_BoggleTree(*bt,i,j);
+        bs.buildBoggleTree(*bt);
+        harvest(*bt,wl);
+        delete bt;
+      }
+    }
 
     // BoggleTree bt = bs.buildBoggleTree(0,0);
     // assert(bt.root->children[4]);
@@ -53,9 +75,9 @@ int main() {
 
 
     cout << "Words on this board:\n";
-    word_list::iterator i;
-    for (i = wl.begin(); i != wl.end(); i++)
-      cout << *i << '\n';
+    word_list::iterator iter;
+    for (iter = wl.begin(); iter != wl.end(); iter++)
+      cout << *iter << '\n';
   
     return 0;
 }
