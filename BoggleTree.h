@@ -1,10 +1,12 @@
 #include "WordTree.h"
 
+const int MAX_WORD_LENGTH = 17;
+
 struct BoggleNode {
   char letter;
   int x;
   int y;
-  char word_so_far [17];
+  char word_so_far [MAX_WORD_LENGTH];
   BoggleNode* children [8];
   BoggleNode* parent;
   Node* branch;

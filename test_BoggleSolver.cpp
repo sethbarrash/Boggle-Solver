@@ -35,22 +35,27 @@ int main() {
     char input_file [100] = "boggleWords.txt";
     WordTree t = WordTree(input_file);
     BoggleSolver bs = BoggleSolver(board0,t);
-    BoggleTree bt = bs.buildBoggleTree(0,0);
-    assert(bt.root->children[4]);
-    assert(bt.root->children[6]);
-    assert(bt.root->children[7]);
-    assert(bt.root->children[4]->children[6]);
-    assert(bt.root->children[6]->children[6]);
-
-    cout << "Before harvest:\n";
-    cout << "Depth of boggle tree is " << get_depth(bt.root) << ".\n";
-    cout << "Size of boggle tree is "  << get_size(bt.root)  << ".\n";
-
-    word_list wl = harvest(bt);
+    BoggleTree* bt;
+    word_list wl;
     
-    cout << "After harvest:\n";
-    cout << "Depth of boggle tree is " << get_depth(bt.root) << ".\n";
-    cout << "Size of boggle tree is "  << get_size(bt.root)  << ".\n";
+    bt = new BoggleTree;
+    bs.initialize_BoggleTree(*bt,2,0);
+    bs.buildBoggleTree(*bt);
+    harvest(*bt,wl);
+    delete bt;
 
+    // BoggleTree bt = bs.buildBoggleTree(0,0);
+    // assert(bt.root->children[4]);
+    // assert(bt.root->children[6]);
+    // assert(bt.root->children[7]);
+    // assert(bt.root->children[4]->children[6]);
+    // assert(bt.root->children[6]->children[6]);
+
+
+    cout << "Words on this board:\n";
+    word_list::iterator i;
+    for (i = wl.begin(); i != wl.end(); i++)
+      cout << *i << '\n';
+  
     return 0;
 }

@@ -2,7 +2,7 @@
 using namespace std;
 
 const int ascii_a = 97;
-const int MAX_WORD_LENGTH = 100;
+const int MAX_ENGLISH_WORD_LENGTH = 100;
 
 struct Node {
     Node* children [26];
@@ -45,7 +45,7 @@ void WordTree::add_file(char* inputFile) {
     ifstream in_stream;
     in_stream.open(inputFile);
 
-    char word [MAX_WORD_LENGTH];
+    char word [MAX_ENGLISH_WORD_LENGTH];
     while (!in_stream.eof()) {
         in_stream >> word;
         add_word(word);
