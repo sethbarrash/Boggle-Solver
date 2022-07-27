@@ -1,3 +1,5 @@
+#ifndef BOGGLETREE_H
+#define BOGGLETREE_H
 #include "WordTree.h"
 
 const int MAX_WORD_LENGTH = 17;
@@ -53,3 +55,5 @@ BoggleTree::BoggleTree() {
 BoggleTree::~BoggleTree() {
   delete_subtree(root);
 }
+
+#endif

@@ -1,6 +1,7 @@
 #include <cassert>
 #include <iostream>
 #include "BoggleSolver.h"
+#include "mergesort.h"
 
 using std::cout;
 
@@ -56,14 +57,14 @@ int main() {
     BoggleTree* bt;
     word_list wl;
 
-    BoggleTree bt00;
-    bs.initialize_BoggleTree(bt00,0,0);
-    bs.buildBoggleTree(bt00);
-    assert(bt00.root->children[4]);
-    assert(bt00.root->children[6]);
-    assert(bt00.root->children[7]);
-    assert(bt00.root->children[4]->children[6]);
-    assert(bt00.root->children[6]->children[6]);
+    // BoggleTree bt00;
+    // bs.initialize_BoggleTree(bt00,0,0);
+    // bs.buildBoggleTree(bt00);
+    // assert(bt00.root->children[4]);
+    // assert(bt00.root->children[6]);
+    // assert(bt00.root->children[7]);
+    // assert(bt00.root->children[4]->children[6]);
+    // assert(bt00.root->children[6]->children[6]);
     
     for (int i=0; i<4; i++) {
       for (int j=0; j<4; j++) {
@@ -75,11 +76,22 @@ int main() {
       }
     }
 
-
-    cout << "Words on this board:\n";
     word_list::iterator iter;
-    for (iter = wl.begin(); iter != wl.end(); iter++)
-      cout << *iter << '\n';
-  
+    int list_length = 0;
+    for (iter = wl.begin(); iter != wl.end(); iter++) list_length++;
+    cout << list_length << '\n';
+
+    char word_array [list_length][MAX_WORD_LENGTH];
+    int l = 0;
+    for (iter = wl.begin(); iter != wl.end(); iter++) {
+      strcpy(word_array[l],*iter);
+      l++;
+    }
+
+    mergesort(word_array,list_length);
+    cout << "Words on this board:\n";
+    for (int i=0; i<list_length; i++) cout << word_array[i] << '\n';
+
+
     return 0;
 }
