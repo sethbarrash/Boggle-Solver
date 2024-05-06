@@ -69,8 +69,9 @@ BoggleSolver::BoggleSolver(char input_board [][4], WordTree wt) {
 }
 
 void BoggleSolver::add_board(char (*input_board)[4]) {
-    for (int i=0; i<4; i++) 
-        for (int j=0; j<4; j++) board[i][j] = input_board[i][j];
+    for (int i=0; i<4; i++)
+        for (int j=0; j<4; j++)
+            board[i][j] = input_board[i][j];
 }
 
 void BoggleSolver::add_WordTree(WordTree wt) {
