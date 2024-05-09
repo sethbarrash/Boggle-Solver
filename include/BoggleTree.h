@@ -1,6 +1,6 @@
 #ifndef BOGGLETREE_H
 #define BOGGLETREE_H
-#include "WordTree.h"
+#include "VocabTree.h"
 
 const int MAX_WORD_LENGTH = 17;
 
@@ -11,7 +11,7 @@ struct BoggleNode {
   char word_so_far [MAX_WORD_LENGTH];
   BoggleNode* children [8];
   BoggleNode* parent;
-  Node* branch;
+  VocabNode* vnode;
   bool is_end_of_word;
 };
 

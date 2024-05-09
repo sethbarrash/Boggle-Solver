@@ -52,7 +52,7 @@ int main() {
         {'r', 'n', 'h', 's'}
     };
     char input_file [100] = "boggleWords.txt";
-    WordTree t = WordTree(input_file);
+    VocabTree t = VocabTree(input_file);
     BoggleSolver bs = BoggleSolver(board3,t);
     BoggleTree* bt;
     word_list wl;

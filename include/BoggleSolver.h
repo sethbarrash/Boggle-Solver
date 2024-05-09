@@ -6,7 +6,6 @@
 using std::set;
 using std::queue;
 
-// typedef list<char [MAX_WORD_LENGTH]> word_list;
 typedef set<char*> word_list;
 
 int XADJ [8] = {-1, -1, -1,  0,  0,  1,  1,  1};
@@ -48,11 +47,11 @@ void add_children_to_queue(BoggleNodePtr bn, queue<BoggleNodePtr>& q) {
 class BoggleSolver {
     public:
         char board [4][4];
-        WordTree t;
+        VocabTree t;
 
-        BoggleSolver(char board [][4], WordTree t);
+        BoggleSolver(char board [][4], VocabTree t);
         void add_board(char (*board)[4]);
-        void add_WordTree(WordTree t);
+        void add_VocabTree(VocabTree t);
         BoggleNodePtr create_child(BoggleNodePtr b, int x, int y, char l);
         void populateChildren(BoggleNodePtr b);
         void initialize_BoggleTree(BoggleTree& bt, int x, int y);
@@ -61,7 +60,7 @@ class BoggleSolver {
         // List findWords();
 };
 
-BoggleSolver::BoggleSolver(char input_board [][4], WordTree wt) {
+BoggleSolver::BoggleSolver(char input_board [][4], VocabTree wt) {
     for (int i=0; i<4; i++)
         for (int j=0; j<4; j++)
             board[i][j] = input_board[i][j];
@@ -74,7 +73,7 @@ void BoggleSolver::add_board(char (*input_board)[4]) {
             board[i][j] = input_board[i][j];
 }
 
-void BoggleSolver::add_WordTree(WordTree wt) {
+void BoggleSolver::add_VocabTree(VocabTree wt) {
     t = wt;
 }
 
@@ -84,8 +83,8 @@ BoggleNodePtr BoggleSolver::create_child(BoggleNodePtr b, int x, int y, char l) 
     child->x = x;
     child->y = y;
     child->parent = b;
-    child->branch = b->branch->children[l-ascii_a];
-    child->is_end_of_word = child->branch->is_end_of_word;
+    child->vnode = b->vnode->children[l-ascii_a];
+    child->is_end_of_word = child->vnode->is_end_of_word;
     return child;
 }
 
@@ -100,7 +99,7 @@ void BoggleSolver::populateChildren(BoggleNodePtr b) {
         ynew = b->y+j;
         if (xnew >= 0 && ynew >= 0 && xnew < 4 && ynew < 4 && !is_ancestor(b,xnew,ynew)) {
             lnew = board[xnew][ynew];
-            if (b->branch->children[lnew-ascii_a])
+            if (b->vnode->children[lnew-ascii_a])
                 b->children[k] = create_child(b,xnew,ynew,lnew);
         }
     }
@@ -112,7 +111,7 @@ void BoggleSolver::initialize_BoggleTree(BoggleTree& bt, int x, int y) {
     bt.root->x = x;
     bt.root->y = y;
     int letter_idx = bt.root->letter-ascii_a;
-    bt.root->branch = t.root->children[letter_idx];
+    bt.root->vnode = t.root->children[letter_idx];
 }
 
 void BoggleSolver::buildBoggleTree(BoggleTree& bt) {

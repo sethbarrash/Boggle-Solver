@@ -1,6 +1,6 @@
 VPATH = src include test
 
-test_WordTree: test_WordTree.cpp
+test_VocabTree: test_VocabTree.cpp
 	g++ $^ -I include -o $@
 
 test_binary_search: test_binary_search.cpp
