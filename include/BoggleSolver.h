@@ -12,6 +12,7 @@ int XADJ [8] = {-1, -1, -1,  0,  0,  1,  1,  1};
 int YADJ [8] = {-1,  0,  1, -1,  1, -1,  0,  1};
 
 void harvest_node(BoggleNodePtr bn, word_list& wl, int depth) {
+    // Gather words from subtree pointed to by bn and put them into the list wl
     bn->word_so_far[depth] = bn->letter;
     char* word_copy;
     if (bn->is_end_of_word) {
@@ -55,9 +56,9 @@ class BoggleSolver {
         BoggleNodePtr create_child(BoggleNodePtr b, int x, int y, char l);
         void populateChildren(BoggleNodePtr b);
         void initialize_BoggleTree(BoggleTree& bt, int x, int y);
-        void buildBoggleTree(BoggleTree& bt);
-        // harvest(BoggleTree btree, List);
-        // List findWords();
+        void build_BoggleTree(BoggleTree& bt);
+        void build_BoggleTree(BoggleTree& bt, int x, int y);
+        word_list solve_board(char (*board)[4]);
 };
 
 BoggleSolver::BoggleSolver(char input_board [][4], VocabTree wt) {
@@ -114,7 +115,7 @@ void BoggleSolver::initialize_BoggleTree(BoggleTree& bt, int x, int y) {
     bt.root->vnode = t.root->children[letter_idx];
 }
 
-void BoggleSolver::buildBoggleTree(BoggleTree& bt) {
+void BoggleSolver::build_BoggleTree(BoggleTree& bt) {
     BoggleNodePtr b = bt.root;
 
     queue<BoggleNodePtr> q;
@@ -126,4 +127,26 @@ void BoggleSolver::buildBoggleTree(BoggleTree& bt) {
         populateChildren(b);
         add_children_to_queue(b,q);
     }
+}
+
+void BoggleSolver::build_BoggleTree(BoggleTree& bt, int x, int y) {
+    initialize_BoggleTree(bt, x, y);
+    build_BoggleTree(bt);
+}
+
+word_list BoggleSolver::solve_board(char (*board)[4]) {
+    BoggleTree* bt;
+    word_list wl;
+    add_board(board);
+    
+    for (int i=0; i<4; i++) {
+      for (int j=0; j<4; j++) {
+        bt = new BoggleTree;
+        build_BoggleTree(*bt,i,j);
+        harvest(*bt,wl);
+        delete bt;
+      }
+    }
+
+    return wl;
 }
