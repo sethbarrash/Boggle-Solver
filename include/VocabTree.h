@@ -30,15 +30,15 @@ class VocabTree {
 };
 
 void VocabTree::add_word(char* word) {
-    char*   letter = word;
-    VocabNodePtr branch = root;
+    char* letter = word;
+    VocabNodePtr vnode = root;
     int letter_idx;
     while (*letter) {
         letter_idx = *(letter++)-ascii_a;
-        if (!branch->children[letter_idx]) branch->children[letter_idx] = new_node();
-        branch = branch->children[letter_idx];
+        if (!vnode->children[letter_idx]) vnode->children[letter_idx] = new_node();
+        vnode = vnode->children[letter_idx];
     }
-    branch->is_end_of_word = 1;
+    vnode->is_end_of_word = 1;
 }
 
 void VocabTree::add_file(char* inputFile) {
@@ -70,17 +70,17 @@ VocabTree::VocabTree(char* inputFile) {
 bool VocabTree::is_word(char* w) {
     if (!root) return 0;
     char* i = w;
-    VocabNodePtr branch = root;
-    VocabNodePtr next_branch = root;
+    VocabNodePtr vnode = root;
+    VocabNodePtr next_vnode = root;
     int letter_idx;
     
     while (*i) {
         letter_idx = *(i++)-ascii_a;
-        next_branch = branch->children[letter_idx];
-        if (next_branch) branch = next_branch;
+        next_vnode = vnode->children[letter_idx];
+        if (next_vnode) vnode = next_vnode;
         else return 0;
     }
-    if (branch->is_end_of_word) return 1;
+    if (vnode->is_end_of_word) return 1;
     return 0;
 }
 
