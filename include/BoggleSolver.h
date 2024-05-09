@@ -41,7 +41,6 @@ word_list harvest(BoggleTree& bt) {
     return wl;
 }
 
-
 void add_children_to_queue(BoggleNodePtr bn, queue<BoggleNodePtr>& q) {
     for (int k=0; k<8; k++) if (bn->children[k]) q.push(bn->children[k]);
 }
@@ -63,8 +62,9 @@ class BoggleSolver {
 };
 
 BoggleSolver::BoggleSolver(char input_board [][4], WordTree wt) {
-    for (int i=0; i<4; i++) 
-        for (int j=0; j<4; j++) board[i][j] = input_board[i][j];
+    for (int i=0; i<4; i++)
+        for (int j=0; j<4; j++)
+            board[i][j] = input_board[i][j];
     t = wt;
 }
 
@@ -90,7 +90,7 @@ BoggleNodePtr BoggleSolver::create_child(BoggleNodePtr b, int x, int y, char l) 
 }
 
 void BoggleSolver::populateChildren(BoggleNodePtr b) {
-    int i,j,xnew,ynew;
+    int i, j, xnew, ynew;
     char lnew;
 
     for (int k=0; k<8; k++) {
