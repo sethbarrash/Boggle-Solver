@@ -154,5 +154,6 @@ word_list BoggleSolver::solve_board() {
 
 word_list BoggleSolver::solve_board(char (*board)[4]) {
     add_board(board);
-    solve_board();
+    word_list wl = solve_board();
+    return wl;
 }
