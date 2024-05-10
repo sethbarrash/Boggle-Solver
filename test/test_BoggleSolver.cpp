@@ -36,20 +36,7 @@ int main() {
     word_list wl = bs.solve_board();
 
     word_list::iterator iter;
-    int list_length = 0;
-    for (iter = wl.begin(); iter != wl.end(); iter++) list_length++;
-    cout << list_length << '\n';
-
-    char word_array [list_length][MAX_WORD_LENGTH];
-    int l = 0;
-    for (iter = wl.begin(); iter != wl.end(); iter++) {
-      strcpy(word_array[l],*iter);
-      l++;
-    }
-
-    mergesort(word_array,list_length);
-    cout << "Words on this board:\n";
-    for (int i=0; i<list_length; i++) cout << word_array[i] << '\n';
+    for (iter = wl.begin(); iter != wl.end(); iter++) cout << *iter << '\n';
 
     return 0;
 }

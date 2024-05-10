@@ -6,7 +6,7 @@
 using std::set;
 using std::queue;
 
-typedef set<char*> word_list;
+typedef set<char*, less<char*>> word_list;
 
 int XADJ [8] = {-1, -1, -1,  0,  0,  1,  1,  1};
 int YADJ [8] = {-1,  0,  1, -1,  1, -1,  0,  1};
@@ -136,7 +136,7 @@ void BoggleSolver::build_BoggleTree(BoggleTree& bt, int x, int y) {
 }
 
 word_list BoggleSolver::solve_board() {
-        BoggleTree* bt;
+    BoggleTree* bt;
     word_list wl;
     add_board(board);
     
