@@ -58,6 +58,7 @@ class BoggleSolver {
         void initialize_BoggleTree(BoggleTree& bt, int x, int y);
         void build_BoggleTree(BoggleTree& bt);
         void build_BoggleTree(BoggleTree& bt, int x, int y);
+        word_list solve_board();
         word_list solve_board(char (*board)[4]);
 };
 
@@ -134,8 +135,8 @@ void BoggleSolver::build_BoggleTree(BoggleTree& bt, int x, int y) {
     build_BoggleTree(bt);
 }
 
-word_list BoggleSolver::solve_board(char (*board)[4]) {
-    BoggleTree* bt;
+word_list BoggleSolver::solve_board() {
+        BoggleTree* bt;
     word_list wl;
     add_board(board);
     
@@ -149,4 +150,9 @@ word_list BoggleSolver::solve_board(char (*board)[4]) {
     }
 
     return wl;
+}
+
+word_list BoggleSolver::solve_board(char (*board)[4]) {
+    add_board(board);
+    solve_board();
 }

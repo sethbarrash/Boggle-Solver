@@ -54,18 +54,7 @@ int main() {
     char input_file [100] = "boggleWords.txt";
     VocabTree t = VocabTree(input_file);
     BoggleSolver bs = BoggleSolver(board3,t);
-    BoggleTree* bt;
-    word_list wl;
-    
-    for (int i=0; i<4; i++) {
-      for (int j=0; j<4; j++) {
-        bt = new BoggleTree;
-        bs.initialize_BoggleTree(*bt,i,j);
-        bs.buildBoggleTree(*bt);
-        harvest(*bt,wl);
-        delete bt;
-      }
-    }
+    word_list wl = bs.solve_board();
 
     word_list::iterator iter;
     int list_length = 0;
