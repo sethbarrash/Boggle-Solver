@@ -1,12 +1,13 @@
 #include <cstring>
-#include <set>
 #include <queue>
+#include <set>
+#include <string>
 #include "BoggleTree.h"
 
 using std::set;
 using std::queue;
 
-typedef set<char*, less<char*>> word_set;
+typedef set<string> word_set;
 
 int XADJ [8] = {-1, -1, -1,  0,  0,  1,  1,  1};
 int YADJ [8] = {-1,  0,  1, -1,  1, -1,  0,  1};
@@ -14,10 +15,8 @@ int YADJ [8] = {-1,  0,  1, -1,  1, -1,  0,  1};
 void harvest_node(BoggleNodePtr bn, word_set& ws, int depth) {
     // Gather words from subtree pointed to by bn and put them into the list ws
     bn->word_so_far[depth] = bn->letter;
-    char* word_copy;
     if (bn->is_end_of_word) {
-        word_copy = new char;
-        strcpy(word_copy,bn->word_so_far);
+        string word_copy = bn->word_so_far;
         ws.insert(word_copy);
     }
     for (int k=0; k<8; k++) {
