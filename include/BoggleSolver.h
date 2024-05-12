@@ -6,39 +6,39 @@
 using std::set;
 using std::queue;
 
-typedef set<char*, less<char*>> word_list;
+typedef set<char*, less<char*>> word_set;
 
 int XADJ [8] = {-1, -1, -1,  0,  0,  1,  1,  1};
 int YADJ [8] = {-1,  0,  1, -1,  1, -1,  0,  1};
 
-void harvest_node(BoggleNodePtr bn, word_list& wl, int depth) {
-    // Gather words from subtree pointed to by bn and put them into the list wl
+void harvest_node(BoggleNodePtr bn, word_set& ws, int depth) {
+    // Gather words from subtree pointed to by bn and put them into the list ws
     bn->word_so_far[depth] = bn->letter;
     char* word_copy;
     if (bn->is_end_of_word) {
         word_copy = new char;
         strcpy(word_copy,bn->word_so_far);
-        wl.insert(word_copy);
+        ws.insert(word_copy);
     }
     for (int k=0; k<8; k++) {
         BoggleNodePtr bk = bn->children[k];
         if (bk) {
             strcpy(bk->word_so_far,bn->word_so_far);
-            harvest_node(bk, wl, depth+1);
+            harvest_node(bk, ws, depth+1);
         }
     }
 }
 
-void harvest(BoggleTree& bt, word_list& wl) {
-    harvest_node(bt.root,wl,0);
+void harvest(BoggleTree& bt, word_set& ws) {
+    harvest_node(bt.root,ws,0);
 }
 
-word_list harvest(BoggleTree& bt) {
-    word_list wl;
+word_set harvest(BoggleTree& bt) {
+    word_set ws;
     BoggleNodePtr bn = bt.root;
-    harvest_node(bn, wl, 0);
+    harvest_node(bn, ws, 0);
 
-    return wl;
+    return ws;
 }
 
 void add_children_to_queue(BoggleNodePtr bn, queue<BoggleNodePtr>& q) {
@@ -58,8 +58,8 @@ class BoggleSolver {
         void initialize_BoggleTree(BoggleTree& bt, int x, int y);
         void build_BoggleTree(BoggleTree& bt);
         void build_BoggleTree(BoggleTree& bt, int x, int y);
-        word_list solve_board();
-        word_list solve_board(char (*board)[4]);
+        word_set solve_board();
+        word_set solve_board(char (*board)[4]);
 };
 
 BoggleSolver::BoggleSolver(char input_board [][4], VocabTree wt) {
@@ -135,25 +135,25 @@ void BoggleSolver::build_BoggleTree(BoggleTree& bt, int x, int y) {
     build_BoggleTree(bt);
 }
 
-word_list BoggleSolver::solve_board() {
+word_set BoggleSolver::solve_board() {
     BoggleTree* bt;
-    word_list wl;
+    word_set ws;
     add_board(board);
     
     for (int i=0; i<4; i++) {
       for (int j=0; j<4; j++) {
         bt = new BoggleTree;
         build_BoggleTree(*bt,i,j);
-        harvest(*bt,wl);
+        harvest(*bt,ws);
         delete bt;
       }
     }
 
-    return wl;
+    return ws;
 }
 
-word_list BoggleSolver::solve_board(char (*board)[4]) {
+word_set BoggleSolver::solve_board(char (*board)[4]) {
     add_board(board);
-    word_list wl = solve_board();
-    return wl;
+    word_set ws = solve_board();
+    return ws;
 }

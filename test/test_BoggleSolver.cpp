@@ -33,10 +33,10 @@ int main() {
     char input_file [100] = "boggleWords.txt";
     VocabTree t = VocabTree(input_file);
     BoggleSolver bs = BoggleSolver(board3,t);
-    word_list wl = bs.solve_board();
+    word_set ws = bs.solve_board();
 
-    word_list::iterator iter;
-    for (iter = wl.begin(); iter != wl.end(); iter++) cout << *iter << '\n';
+    word_set::iterator iter;
+    for (iter = ws.begin(); iter != ws.end(); iter++) cout << *iter << '\n';
 
     return 0;
 }
