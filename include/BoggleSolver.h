@@ -4,6 +4,9 @@
 #include <string>
 #include "BoggleTree.h"
 
+#ifndef BOGGLESOLVER_H
+#define BOGGLESOLVER_H
+
 using std::set;
 using std::queue;
 
@@ -156,3 +159,5 @@ word_set BoggleSolver::solve_board(char (*board)[4]) {
     word_set ws = solve_board();
     return ws;
 }
+
+#endif
