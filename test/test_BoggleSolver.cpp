@@ -7,9 +7,9 @@
 
 using std::cout;
 
-void test_board(char board [][4], word_set expected_words, const VocabTree t)
+void test_board(char board [][4], word_set expected_words)
 {
-    BoggleSolver bs = BoggleSolver(board, t);
+    BoggleSolver bs = BoggleSolver(board);
     word_set ws = bs.solve_board();
     if (ws != expected_words)
     {
@@ -50,11 +50,12 @@ int main()
 {
     char input_file [100] = "boggleWords.txt";
     VocabTree t = VocabTree(input_file);
+    BoggleSolver bs = BoggleSolver(board0);
 
-    test_board(board0, ws0, t);
-    test_board(board1, ws1, t);
-    test_board(board2, ws2, t);
-    test_board(board3, ws3, t);
+    test_board(board0, ws0);
+    test_board(board1, ws1);
+    test_board(board2, ws2);
+    test_board(board3, ws3);
 
     return 0;
 }

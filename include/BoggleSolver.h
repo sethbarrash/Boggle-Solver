@@ -70,7 +70,7 @@ BoggleSolver::BoggleSolver(char input_board [][4]) {
     for (int i=0; i<4; i++)
         for (int j=0; j<4; j++)
             board[i][j] = input_board[i][j];
-    VocabTree t = VocabTree(DEFAULT_VOCAB_FILE);
+    t = VocabTree(DEFAULT_VOCAB_FILE);
 }
 
 BoggleSolver::BoggleSolver(char input_board [][4], VocabTree wt) {
