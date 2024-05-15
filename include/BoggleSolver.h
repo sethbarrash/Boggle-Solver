@@ -12,6 +12,7 @@ using std::queue;
 
 typedef set<string> word_set;
 
+char DEFAULT_VOCAB_FILE [100] = "boggleWords.txt";
 int XADJ [8] = {-1, -1, -1,  0,  0,  1,  1,  1};
 int YADJ [8] = {-1,  0,  1, -1,  1, -1,  0,  1};
 
@@ -52,6 +53,7 @@ class BoggleSolver {
         char board [4][4];
         VocabTree t;
 
+        BoggleSolver(char board [][4]);
         BoggleSolver(char board [][4], VocabTree t);
         void add_board(char (*board)[4]);
         void add_VocabTree(VocabTree t);
@@ -63,6 +65,13 @@ class BoggleSolver {
         word_set solve_board();
         word_set solve_board(char (*board)[4]);
 };
+
+BoggleSolver::BoggleSolver(char input_board [][4]) {
+    for (int i=0; i<4; i++)
+        for (int j=0; j<4; j++)
+            board[i][j] = input_board[i][j];
+    VocabTree t = VocabTree(DEFAULT_VOCAB_FILE);
+}
 
 BoggleSolver::BoggleSolver(char input_board [][4], VocabTree wt) {
     for (int i=0; i<4; i++)
