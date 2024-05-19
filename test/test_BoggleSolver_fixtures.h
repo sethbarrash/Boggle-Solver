@@ -1,4 +1,7 @@
-#include "BoggleSolver.h"
+#ifndef TEST_BOGGLESOLVER_FIXTURES_H
+#define TEST_BOGGLESOLVER_FIXTURES_H
+
+#include "VocabTree.h"
 
 char board0[4][4] = {
     {'a', 'r', 'g', 't'},
@@ -213,3 +216,5 @@ word_set ws3 = {
     "taxes",
     "tom",
 };
+
+#endif
