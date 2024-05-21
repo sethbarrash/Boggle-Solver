@@ -23,3 +23,6 @@ test_BoggleTree: test_BoggleTree.cpp BoggleTree.o VocabTree.o
 
 test_BoggleSolver: test_BoggleSolver.cpp BoggleSolver.o BoggleTree.o VocabTree.o
 	g++ $^ -I include -o $@
+
+check: test_binary_search
+	./test_binary_search
