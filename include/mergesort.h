@@ -1,5 +1,6 @@
 #include <cstring>
-#include "BoggleTree.h"
+
+const int MAX_WORD_LENGTH = 100;
 
 void merge(char a[][MAX_WORD_LENGTH], int left, int center, int right) {
   if (center <= left || right <= center) return;
