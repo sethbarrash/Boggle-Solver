@@ -85,13 +85,9 @@ void BoggleSolver::gather_words_from_square(uint8_t x, uint8_t y) {
 }
 
 word_set BoggleSolver::solve_board() {
-    BoggleTree* bt;
-    add_board(board);
-
     for (int x=0; x<4; x++)
         for (int y=0; y<4; y++)
             gather_words_from_square(x, y);
-
     return ws;
 }
 
