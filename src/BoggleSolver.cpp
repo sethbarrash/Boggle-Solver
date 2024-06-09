@@ -25,43 +25,62 @@ void BoggleSolver::add_VocabTree(VocabTree wt) {
     t = wt;
 }
 
+SolutionStep BoggleSolver::make_step(uint8_t xnew, uint8_t ynew, SolutionStep step) {
+        char letter = board[xnew][ynew];
+        uint8_t new_depth = step.depth + 1;
+        VocabNodePtr new_vocab_node_ptr = step.v->children[letter-ascii_a];
+        set<pair<uint8_t, uint8_t>> new_squares_used = step.squares_used;
+        new_squares_used.insert({step.x, step.y});
+
+        SolutionStep new_step = {
+            xnew,
+            ynew,
+            new_vocab_node_ptr,
+            {0},
+            new_depth,
+            new_squares_used,
+        };
+        strcpy(new_step.word_so_far, step.word_so_far);
+        step.word_so_far[new_depth] = letter;
+
+        if (new_vocab_node_ptr->is_end_of_word)
+            // TODO: Convert word_so_far to a string
+            ws.insert(new_step.word_so_far);
+}
+
+bool is_not_on_board(uint8_t x, uint8_t y) {
+    if (x < 0) return true;
+    if (y < 0) return true;
+    if (x > 3) return true;
+    if (y > 3) return true;
+    return false;
+}
+
+bool square_already_used(uint8_t xnew, uint8_t ynew, SolutionStep step) {
+    bool already_used = step.squares_used.count({xnew, ynew}) > 0;
+    return already_used;
+}
+
+bool BoggleSolver::could_lead_to_new_words(uint8_t xnew, uint8_t ynew, SolutionStep step) {
+    if (is_not_on_board(xnew, ynew)) return false;
+    if (square_already_used(xnew, ynew, step)) return false;
+
+    char letter = board[xnew][ynew];
+    if (step.v->children[letter-ascii_a]) return true;
+}
+
 void BoggleSolver::do_step(SolutionStep step) {
     uint8_t i, j, xnew, ynew;
-    char lnew;
-
-    for (int k=0; k<8; k++) {
+    for (uint8_t k=0; k<8; k++) {
         i = XADJ[k];
         j = YADJ[k];
         xnew = step.x + i;
         ynew = step.y + j;
-        bool used_before = step.squares_used.count({xnew, ynew}) == 0;
-        if (xnew >= 0 && ynew >= 0 && xnew < 4 && ynew < 4 && !used_before)
+
+        if (could_lead_to_new_words(xnew, ynew, step))
         {
-            lnew = board[xnew][ynew];
-            VocabNodePtr new_vocab_node_ptr = step.v->children[lnew-ascii_a];
-            if (new_vocab_node_ptr)
-            {
-                uint8_t new_depth = step.depth + 1;
-                set<pair<uint8_t, uint8_t>> new_squares_used = step.squares_used;
-                new_squares_used.insert({step.x, step.y});
-
-                SolutionStep new_step = {
-                    xnew,
-                    ynew,
-                    new_vocab_node_ptr,
-                    {0},
-                    new_depth,
-                    new_squares_used,
-                };
-                strcpy(new_step.word_so_far, step.word_so_far);
-                step.word_so_far[new_depth] = lnew;
-
-                if (new_vocab_node_ptr->is_end_of_word)
-                    // TODO: Convert word_so_far to a string
-                    ws.insert(new_step.word_so_far);
-                
-                q.push(new_step);
-            }
+            SolutionStep next_step = make_step(xnew, ynew, step);
+            q.push(next_step);
         }
     }
 }

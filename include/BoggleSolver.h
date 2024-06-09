@@ -24,6 +24,9 @@ struct SolutionStep {
     set<pair<uint8_t, uint8_t>> squares_used;
 };
 
+bool is_not_on_board(uint8_t x, uint8_t y);
+bool square_already_used(uint8_t xnew, uint8_t ynew, SolutionStep step);
+
 class BoggleSolver {
     public:
         BoggleSolver(char board [][4]);
@@ -39,6 +42,7 @@ class BoggleSolver {
         queue<SolutionStep> q;
         word_set ws;
 
+        bool could_lead_to_new_words(uint8_t xnew, uint8_t ynew, SolutionStep step);
         SolutionStep make_first_step(uint8_t x, uint8_t y);
         SolutionStep make_step(uint8_t xnew, uint8_t ynew, SolutionStep step);
         void do_step(SolutionStep step);
