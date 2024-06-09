@@ -138,8 +138,9 @@ void BoggleSolver::do_step(SolutionStep step) {
                 };
                 strcpy(new_step.word_so_far, step.word_so_far);
                 step.word_so_far[new_depth] = lnew;
-                // If new word so far is a real word
-                //      Add it to ws
+
+                if (new_vocab_node_ptr->is_end_of_word)
+                    ws.insert(new_step.word_so_far);
                 
                 q.push(new_step);
             }
