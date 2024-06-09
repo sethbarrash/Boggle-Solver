@@ -10,26 +10,27 @@ void print_words(char (*a)[MAX_WORD_LENGTH], int length) {
 }
 
 int main() {
-  char genesis     [MAX_WORD_LENGTH] = "genesis";
-  char exodus      [MAX_WORD_LENGTH] = "exodus";
-  char leviticus   [MAX_WORD_LENGTH] = "leviticus";
-  char numbers     [MAX_WORD_LENGTH] = "numbers";
-  char deuteronomy [MAX_WORD_LENGTH] = "deuteronomy";
+  char new_york   [MAX_WORD_LENGTH] = "New York";
+  char baltimore  [MAX_WORD_LENGTH] = "Baltimore";
+  char chicago    [MAX_WORD_LENGTH] = "Chicago";
+  char cleveland  [MAX_WORD_LENGTH] = "Cleveland";
+  char washington [MAX_WORD_LENGTH] = "Washington";
+  char detroit    [MAX_WORD_LENGTH] = "Detroit";
 
   char a [5][MAX_WORD_LENGTH] = {
-    "genesis",
-    "exodus",
-    "leviticus",
-    "numbers",
-    "deuteronomy"
+    "Baltimore",
+    "Chicago",
+    "Cleveland",
+    "New York",
+    "Washington"
   };
 
   mergesort(a,5);
   print_words(a,5);
 
-  assert(!strcmp(a[0],deuteronomy));
-  assert(!strcmp(a[1],exodus));
-  assert(!strcmp(a[2],genesis));
-  assert(!strcmp(a[3],leviticus));
-  assert(!strcmp(a[4],numbers));
+  assert(!strcmp(a[0],baltimore));
+  assert(!strcmp(a[1],chicago));
+  assert(!strcmp(a[2],cleveland));
+  assert(!strcmp(a[3],detroit));
+  assert(!strcmp(a[4],washington));
 }
