@@ -66,16 +66,21 @@ void BoggleSolver::do_step(SolutionStep step) {
     }
 }
 
-void BoggleSolver::gather_words_from_square(uint8_t x, uint8_t y) {
+SolutionStep BoggleSolver::make_first_step(uint8_t x, uint8_t y) {
     char letter = board[x][y];
     VocabNodePtr vocab_node_ptr = t.root->children[letter - ascii_a];
     set<pair<uint8_t, uint8_t>> squares_used;
     squares_used.insert({x, y});
     SolutionStep first_step = {x, y, vocab_node_ptr, {0}, 0, squares_used};
     first_step.word_so_far[0] = letter;
+    return first_step;
+}
+
+void BoggleSolver::gather_words_from_square(uint8_t x, uint8_t y) {
+    SolutionStep first_step = make_first_step(x, y);
+    SolutionStep next_step;
 
     q.push(first_step);
-    SolutionStep next_step;
     while (!q.empty())
     {
         next_step = q.front();

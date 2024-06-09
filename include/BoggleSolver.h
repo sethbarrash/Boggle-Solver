@@ -39,6 +39,8 @@ class BoggleSolver {
         queue<SolutionStep> q;
         word_set ws;
 
+        SolutionStep make_first_step(uint8_t x, uint8_t y);
+        SolutionStep make_step(uint8_t xnew, uint8_t ynew, SolutionStep step);
         void do_step(SolutionStep step);
         void gather_words_from_square(uint8_t x, uint8_t y);
 };
