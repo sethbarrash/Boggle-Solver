@@ -7,7 +7,6 @@
 #include <string>
 #include "BoggleTree.h"
 
-
 using std::set;
 using std::queue;
 
@@ -16,6 +15,15 @@ typedef set<string> word_set;
 static char DEFAULT_VOCAB_FILE [100] = "boggleWords.txt";
 static int XADJ [8] = {-1, -1, -1,  0,  0,  1,  1,  1};
 static int YADJ [8] = {-1,  0,  1, -1,  1, -1,  0,  1};
+
+struct SolutionStep {
+    uint8_t x;
+    uint8_t y;
+    VocabNodePtr v;
+    char word_so_far [MAX_ENGLISH_WORD_LENGTH];
+    uint8_t depth;
+    set<pair<uint8_t, uint8_t>> squares_used;
+};
 
 void harvest_node(BoggleNodePtr bn, word_set& ws, int depth);
 void harvest(BoggleTree& bt, word_set& ws);
@@ -26,6 +34,8 @@ class BoggleSolver {
     public:
         char board [4][4];
         VocabTree t;
+        queue<SolutionStep> q;
+        word_set ws;
 
         BoggleSolver(char board [][4]);
         BoggleSolver(char board [][4], VocabTree t);
@@ -38,6 +48,9 @@ class BoggleSolver {
         void build_BoggleTree(BoggleTree& bt, int x, int y);
         word_set solve_board();
         word_set solve_board(char (*board)[4]);
+
+        void do_step(SolutionStep step);
+        void gather_words_from_square(uint8_t x, uint8_t y);
 };
 
 #endif
