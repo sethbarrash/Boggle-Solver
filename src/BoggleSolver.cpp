@@ -140,6 +140,7 @@ void BoggleSolver::do_step(SolutionStep step) {
                 step.word_so_far[new_depth] = lnew;
 
                 if (new_vocab_node_ptr->is_end_of_word)
+                    // TODO: Convert word_so_far to a string
                     ws.insert(new_step.word_so_far);
                 
                 q.push(new_step);
