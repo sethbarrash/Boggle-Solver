@@ -26,26 +26,28 @@ void BoggleSolver::add_VocabTree(VocabTree wt) {
 }
 
 SolutionStep BoggleSolver::make_step(uint8_t xnew, uint8_t ynew, SolutionStep step) {
-        char letter = board[xnew][ynew];
-        uint8_t new_depth = step.depth + 1;
-        VocabNodePtr new_vocab_node_ptr = step.v->children[letter-ascii_a];
-        set<pair<uint8_t, uint8_t>> new_squares_used = step.squares_used;
-        new_squares_used.insert({step.x, step.y});
+    char letter = board[xnew][ynew];
+    uint8_t new_depth = step.depth + 1;
+    VocabNodePtr new_vocab_node_ptr = step.v->children[letter-ascii_a];
+    set<pair<uint8_t, uint8_t>> new_squares_used = step.squares_used;
+    new_squares_used.insert({step.x, step.y});
 
-        SolutionStep new_step = {
-            xnew,
-            ynew,
-            new_vocab_node_ptr,
-            {0},
-            new_depth,
-            new_squares_used,
-        };
-        strcpy(new_step.word_so_far, step.word_so_far);
-        step.word_so_far[new_depth] = letter;
+    SolutionStep new_step = {
+        xnew,
+        ynew,
+        new_vocab_node_ptr,
+        {0},
+        new_depth,
+        new_squares_used,
+    };
+    strcpy(new_step.word_so_far, step.word_so_far);
+    step.word_so_far[new_depth] = letter;
 
-        if (new_vocab_node_ptr->is_end_of_word)
-            // TODO: Convert word_so_far to a string
-            ws.insert(new_step.word_so_far);
+    if (new_vocab_node_ptr->is_end_of_word)
+        // TODO: Convert word_so_far to a string
+        ws.insert(new_step.word_so_far);
+    
+    return new_step;
 }
 
 bool is_not_on_board(uint8_t x, uint8_t y) {
@@ -67,6 +69,7 @@ bool BoggleSolver::could_lead_to_new_words(uint8_t xnew, uint8_t ynew, SolutionS
 
     char letter = board[xnew][ynew];
     if (step.v->children[letter-ascii_a]) return true;
+    else return false;
 }
 
 void BoggleSolver::do_step(SolutionStep step) {

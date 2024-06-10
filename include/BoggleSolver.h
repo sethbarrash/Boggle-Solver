@@ -5,9 +5,11 @@
 #include <queue>
 #include <set>
 #include <string>
+#include "VocabTree.h"
 
 using std::set;
 using std::queue;
+using std::string;
 
 typedef set<string> word_set;
 
