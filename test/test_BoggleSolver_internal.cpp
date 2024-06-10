@@ -40,6 +40,13 @@ void test_make_first_step_0() {
     assert(bs.ws.empty());
     assert(bs.q.empty());
     SolutionStep first_step = bs.make_first_step(0, 0);
+
+    assert(first_step.x == 0);
+    assert(first_step.y == 0);
+    assert(first_step.depth == 0);
+    assert(first_step.v);
+    // assert(first_step.word_so_far)
+    assert(first_step.squares_used.empty());
 }
 
 int main() {

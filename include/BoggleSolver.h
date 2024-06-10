@@ -20,9 +20,9 @@ static int YADJ [8] = {-1,  0,  1, -1,  1, -1,  0,  1};
 struct SolutionStep {
     uint8_t x;
     uint8_t y;
+    uint8_t depth;
     VocabNodePtr v;
     char word_so_far [MAX_ENGLISH_WORD_LENGTH];
-    uint8_t depth;
     set<pair<uint8_t, uint8_t>> squares_used;
 };
 
