@@ -24,18 +24,19 @@ bool is_valid_boggle_word(char* word) {
 }
 
 void VocabTree::add_word(char* word) {
-    // TODO: update max_word_length
-    if (!is_valid_boggle_word(word)) return;
-
-    char* letter = word;
+    char* letter_ptr = word;
     VocabNodePtr vnode = root;
-    int letter_idx;
-    while (*letter) {
-        letter_idx = *(letter++) - ascii_a;
+    uint8_t letter_idx, word_length;
+
+    while (*letter_ptr) {
+        letter_idx = *(letter_ptr++) - ascii_a;
         if (!vnode->children[letter_idx])
             vnode->children[letter_idx] = new_node();
         vnode = vnode->children[letter_idx];
+        word_length++;
     }
+
+    if (word_length > max_word_length) max_word_length = word_length;
     vnode->is_end_of_word = 1;
 }
 
@@ -46,7 +47,7 @@ void VocabTree::add_file(char* inputFile) {
     char word [MAX_EXPECTED_WORD_LENGTH];
     while (!in_stream.eof()) {
         in_stream >> word;
-        add_word(word);
+        if (is_valid_boggle_word(word)) add_word(word);
     }
 
     in_stream.close();    

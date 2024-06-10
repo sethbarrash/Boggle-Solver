@@ -29,19 +29,33 @@ void test_is_valid_boggle_word()
 }
 
 int main() {
-    char adam [5] = "adam";
-    char eve  [4] = "eve";
+    char can  [MAX_EXPECTED_WORD_LENGTH] = "can";
+    char port [MAX_EXPECTED_WORD_LENGTH] = "port";
     VocabTree t;
-    assert(!t.is_word(adam));
-    t.add_word(adam);
-    assert(t.root->children[0]);
-    assert(t.root->children[0]->children[3]);
-    assert(t.root->children[0]->children[3]->children[0]);
-    assert(t.root->children[0]->children[3]->children[0]->children[12]);
-    assert(t.root->children[0]->children[3]->children[0]->children[12]->is_end_of_word);
-    for (int i=1; i<26; i++) assert(!t.root->children[i]);
-    assert(t.is_word(adam));
-    assert(!t.is_word(eve));
+    assert(!t.is_word(can));
+    t.add_word(can);
+    assert(t.root->children[2]);
+    assert(!t.root->children[2]->is_end_of_word);
+    assert(t.root->children[2]->children[0]);
+    assert(!t.root->children[2]->children[0]->is_end_of_word);
+    assert(t.root->children[2]->children[0]->children[13]);
+    assert(t.root->children[2]->children[0]->children[13]->is_end_of_word);
+    for (int i = 0; i < 26; i++) if (i != 2) assert(!t.root->children[i]);
+    assert(t.is_word(can));
+
+    assert(!t.is_word(port));
+    t.add_word(port);
+    assert(t.root->children[15]);
+    assert(!t.root->children[15]->is_end_of_word);
+    assert(t.root->children[15]->children[14]);
+    assert(!t.root->children[15]->children[14]->is_end_of_word);
+    assert(t.root->children[15]->children[14]->children[17]);
+    assert(!t.root->children[15]->children[14]->children[17]->is_end_of_word);
+    assert(t.root->children[15]->children[14]->children[17]->children[19]);
+    assert(t.root->children[15]->children[14]->children[17]->children[19]->is_end_of_word);
+    for (int i = 0; i < 26; i++) 
+        if (i != 2 && i != 15) assert(!t.root->children[i]);
+    assert(t.is_word(port));
 
     char input_file [100] = "boggleWords.txt";
     VocabTree t1 = VocabTree(input_file);
