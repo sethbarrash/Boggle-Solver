@@ -16,7 +16,7 @@ test_mergesort: test_mergesort.cpp mergesort.h
 	g++ $^ -I include -o $@
 
 test_BoggleSolver_internal: test_BoggleSolver_internal.cpp BoggleSolver.o VocabTree.o
-	g++ $^ -I include -o $@
+	g++ $^ -I include -o $@ -fno-access-control
 
 test_BoggleSolver: test_BoggleSolver.cpp BoggleSolver.o VocabTree.o
 	g++ $^ -I include -o $@
@@ -26,4 +26,5 @@ check: test_binary_search test_mergesort test_VocabTree test_BoggleTree test_Bog
 	./test_mergesort
 	./test_VocabTree
 	./test_BoggleTree
+	./test_BoggleSolver_internal
 	./test_BoggleSolver

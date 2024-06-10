@@ -35,6 +35,13 @@ void test_is_not_on_board() {
     assert(is_not_on_board(4, 4) == 1);
 }
 
+void test_make_first_step_0() {
+    BoggleSolver bs(board0);
+    assert(bs.ws.empty());
+    assert(bs.q.empty());
+    SolutionStep first_step = bs.make_first_step(0, 0);
+}
+
 int main() {
     test_is_not_on_board();
 }
