@@ -62,4 +62,7 @@ int main() {
     t.add_file(input_file);
     char bathrooms [20] = "bathrooms";
     assert(t.is_word(bathrooms));
+    char characterization [20] = "characterization";
+    assert(t.is_word(characterization));
+    assert(t.max_word_length == 16);
 }

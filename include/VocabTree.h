@@ -23,7 +23,7 @@ bool is_valid_boggle_word(char* word);
 class VocabTree {
     public:
         VocabNodePtr root;
-        uint8_t max_word_length;
+        int max_word_length;
 
         VocabTree();
         VocabTree(char* inputFile);
