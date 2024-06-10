@@ -1,3 +1,4 @@
+#include <cstring>
 #include "VocabTree.h"
 
 VocabNode* new_node() {
@@ -6,13 +7,33 @@ VocabNode* new_node() {
     return x;
 }
 
+bool is_valid_boggle_word(char* word) {
+    if (strlen(word) < MIN_BOGGLE_WORD_LENGTH) return false;
+    char* letter_ptr = word;
+    uint8_t n_boggle_squares = 0;
+
+    while (*letter_ptr)
+    {
+        if (*letter_ptr == 'q' && *(++letter_ptr) != 'u') return false;
+        n_boggle_squares++;
+        letter_ptr++;
+    }
+
+    if (n_boggle_squares > N_SQUARES_ON_BOGGLE_BOARD) return false;
+    return true;
+}
+
 void VocabTree::add_word(char* word) {
+    // TODO: update max_word_length
+    if (!is_valid_boggle_word(word)) return;
+
     char* letter = word;
     VocabNodePtr vnode = root;
     int letter_idx;
     while (*letter) {
-        letter_idx = *(letter++)-ascii_a;
-        if (!vnode->children[letter_idx]) vnode->children[letter_idx] = new_node();
+        letter_idx = *(letter++) - ascii_a;
+        if (!vnode->children[letter_idx])
+            vnode->children[letter_idx] = new_node();
         vnode = vnode->children[letter_idx];
     }
     vnode->is_end_of_word = 1;
@@ -22,7 +43,7 @@ void VocabTree::add_file(char* inputFile) {
     ifstream in_stream;
     in_stream.open(inputFile);
 
-    char word [MAX_ENGLISH_WORD_LENGTH];
+    char word [MAX_EXPECTED_WORD_LENGTH];
     while (!in_stream.eof()) {
         in_stream >> word;
         add_word(word);
@@ -32,7 +53,9 @@ void VocabTree::add_file(char* inputFile) {
 }
 
 void VocabTree::delete_subtree(VocabNodePtr subtree) {
-    if (subtree) for (int i=0; i<26; i++) delete_subtree(subtree->children[i]);
+    if (subtree)
+        for (int i = 0; i < LENGTH_OF_ALPHABET; i++)
+            delete_subtree(subtree->children[i]);
 }
 
 VocabTree::VocabTree() {

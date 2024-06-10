@@ -7,7 +7,7 @@ BoggleSolver.o: BoggleSolver.cpp VocabTree.o
 	g++ -c $< VocabTree.o -I include -o $@
 
 test_VocabTree: test_VocabTree.cpp VocabTree.o
-	g++ $^ -I include -o $@
+	g++ $^ -I include -o $@ -fno-access-control
 
 test_binary_search: test_binary_search.cpp binary_search.h
 	g++ $^ -I include -o $@

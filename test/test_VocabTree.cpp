@@ -2,6 +2,32 @@
 #include <iostream>
 #include "VocabTree.h"
 
+void test_is_valid_boggle_word()
+{
+    char test_word0 [100] = "quo";
+    assert(is_valid_boggle_word(test_word0) == 1);
+    char test_word1 [100] = "computer";
+    assert(is_valid_boggle_word(test_word1) == 1);
+    char test_word2 [100] = "united";
+    assert(is_valid_boggle_word(test_word1) == 1);
+    char test_word3 [100] = "a";
+    assert(is_valid_boggle_word(test_word1) == 0);
+    char test_word4 [100] = "ab";
+    assert(is_valid_boggle_word(test_word1) == 0);
+    char test_word5 [100] = "ad";
+    assert(is_valid_boggle_word(test_word1) == 0);
+    char test_word6 [100] = "administrators";
+    assert(is_valid_boggle_word(test_word1) == 1);
+    char test_word7 [100] = "i";
+    assert(is_valid_boggle_word(test_word1) == 0);
+    char test_word8 [100] = "characterization";
+    assert(is_valid_boggle_word(test_word1) == 1);
+    char test_word9 [100] = "responsibilities";
+    assert(is_valid_boggle_word(test_word1) == 1);
+    char test_word10 [100] = "telecommunications";
+    assert(is_valid_boggle_word(test_word1) == 0);
+}
+
 int main() {
     char adam [5] = "adam";
     char eve  [4] = "eve";
