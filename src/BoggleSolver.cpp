@@ -37,14 +37,13 @@ SolutionStep BoggleSolver::make_step(uint8_t xnew, uint8_t ynew, SolutionStep st
         ynew,
         new_depth,
         new_vocab_node_ptr,
-        {0},
+        string(t.max_word_length, 0),
         new_squares_used,
     };
-    strcpy(new_step.word_so_far, step.word_so_far);
+    new_step.word_so_far = step.word_so_far;
     step.word_so_far[new_depth] = letter;
 
     if (new_vocab_node_ptr->is_end_of_word)
-        // TODO: Convert word_so_far to a string
         ws.insert(new_step.word_so_far);
     
     return new_step;
@@ -93,8 +92,9 @@ SolutionStep BoggleSolver::make_first_step(uint8_t x, uint8_t y) {
     VocabNodePtr vocab_node_ptr = t.root->children[letter - ascii_a];
     set<pair<uint8_t, uint8_t>> squares_used;
     squares_used.insert({x, y});
-    SolutionStep first_step = {x, y, 0, vocab_node_ptr, {0}, squares_used};
+    SolutionStep first_step = {x, y, 0, vocab_node_ptr, string(t.max_word_length, 0), squares_used};
     first_step.word_so_far[0] = letter;
+    first_step.word_so_far.resize(1);
     return first_step;
 }
 

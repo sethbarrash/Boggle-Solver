@@ -22,7 +22,7 @@ struct SolutionStep {
     uint8_t y;
     uint8_t depth;
     VocabNodePtr v;
-    char word_so_far [MAX_ENGLISH_WORD_LENGTH];
+    string word_so_far;
     set<pair<uint8_t, uint8_t>> squares_used;
 };
 
