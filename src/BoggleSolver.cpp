@@ -30,18 +30,17 @@ SolutionStep BoggleSolver::make_step(uint8_t xnew, uint8_t ynew, SolutionStep st
     uint8_t new_depth = step.depth + 1;
     VocabNodePtr new_vocab_node_ptr = step.v->children[letter-ascii_a];
     set<pair<uint8_t, uint8_t>> new_squares_used = step.squares_used;
-    new_squares_used.insert({step.x, step.y});
+    new_squares_used.insert({xnew, ynew});
 
     SolutionStep new_step = {
         xnew,
         ynew,
         new_depth,
         new_vocab_node_ptr,
-        string(t.max_word_length, 0),
+        step.word_so_far,
         new_squares_used,
     };
-    new_step.word_so_far = step.word_so_far;
-    step.word_so_far[new_depth] = letter;
+    new_step.word_so_far.push_back(letter);
 
     if (new_vocab_node_ptr->is_end_of_word)
         ws.insert(new_step.word_so_far);
