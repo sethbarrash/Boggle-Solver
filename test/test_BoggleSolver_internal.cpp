@@ -101,5 +101,5 @@ void test_make_step() {
 
 int main() {
     test_is_not_on_board();
-    test_make_first_steps_0();
+    test_make_step();
 }
