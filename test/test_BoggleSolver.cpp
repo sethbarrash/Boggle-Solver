@@ -1,11 +1,13 @@
 #include <algorithm>
 #include <cassert>
+#include <chrono>
 #include <iostream>
 #include "BoggleSolver.h"
 #include "mergesort.h"
 #include "test_BoggleSolver_fixtures.h"
 
 using std::cout;
+using namespace std::chrono;
 
 void test_board(char board [][4], word_set expected_words)
 {
@@ -52,10 +54,22 @@ int main()
     VocabTree t = VocabTree(input_file);
     BoggleSolver bs = BoggleSolver(board0);
 
+    auto start_time = high_resolution_clock::now();
+
+    cout << "Solving board 0\n";
     test_board(board0, ws0);
+    cout << "Solving board 1\n";
     test_board(board1, ws1);
+    cout << "Solving board 2\n";
     test_board(board2, ws2);
+    cout << "Solving board 3\n";
     test_board(board3, ws3);
+
+    auto stop_time = high_resolution_clock::now();
+
+    auto duration = duration_cast<microseconds>(stop_time - start_time);
+
+    cout << "Took " << duration.count() / 1e6 << " seconds to solve 4 boggle boards.\n";
 
     return 0;
 }
