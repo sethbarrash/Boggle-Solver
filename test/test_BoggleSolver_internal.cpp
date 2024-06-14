@@ -130,6 +130,32 @@ void test_do_step() {
     assert(step.v);
     assert(step.word_so_far == "ar");
     assert(step.squares_used == expected_squares_0_1);
+
+    bs.q.pop();
+
+    step = bs.q.front();
+    set<pair<uint8_t, uint8_t>> expected_squares_1_0 = expected_squares_used;
+    expected_squares_1_0.insert({1, 0});
+
+    assert(step.x == 1);
+    assert(step.y == 0);
+    assert(step.depth == 1);
+    assert(step.v);
+    assert(step.word_so_far == "an");
+    assert(step.squares_used == expected_squares_1_0);
+
+    bs.q.pop();
+
+    step = bs.q.front();
+    set<pair<uint8_t, uint8_t>> expected_squares_1_1 = expected_squares_used;
+    expected_squares_1_1.insert({1, 1});
+
+    assert(step.x == 1);
+    assert(step.y == 1);
+    assert(step.depth == 1);
+    assert(step.v);
+    assert(step.word_so_far == "ae");
+    assert(step.squares_used == expected_squares_1_1);
 }
 
 int main() {
