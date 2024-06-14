@@ -99,6 +99,39 @@ void test_make_step() {
     assert(bs.ws.count("are") == 1);
 }
 
+void test_do_step() {
+    BoggleSolver bs(board0);
+    assert(bs.ws.empty());
+    assert(bs.q.empty());
+    SolutionStep first_step = bs.make_first_step(0, 0);
+    set<pair<uint8_t, uint8_t>> expected_squares_used;
+    assert(expected_squares_used.empty());
+    expected_squares_used.insert({0, 0});
+
+    assert(first_step.x == 0);
+    assert(first_step.y == 0);
+    assert(first_step.depth == 0);
+    assert(first_step.v);
+    assert(first_step.word_so_far == "a");
+    assert(first_step.squares_used == expected_squares_used);
+    assert(bs.ws.empty());
+
+    bs.do_step(first_step);
+    assert(bs.q.size() == 3);
+    assert(bs.ws.empty());
+
+    SolutionStep step = bs.q.front();
+    set<pair<uint8_t, uint8_t>> expected_squares_0_1 = expected_squares_used;
+    expected_squares_0_1.insert({0, 1});
+
+    assert(step.x == 0);
+    assert(step.y == 2);
+    assert(step.depth == 1);
+    assert(step.v);
+    assert(step.word_so_far == "ar");
+    assert(step.squares_used == expected_squares_0_1);
+}
+
 int main() {
     test_is_not_on_board();
     test_make_step();
