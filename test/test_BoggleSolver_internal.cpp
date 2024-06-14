@@ -163,11 +163,28 @@ void test_do_step()
 
 void test_gather_words_from_square()
 {
-    
+    BoggleSolver bs(board0);
+    assert(bs.ws.empty());
+    assert(bs.q.empty());
+
+    bs.gather_words_from_square(0, 0);
+    assert(bs.ws.size() == 3);
+    assert(bs.ws.count("and") == 1);
+    assert(bs.ws.count("are") == 1);
+    assert(bs.ws.count("arg") == 1);
+    assert(bs.q.empty());
+
+    word_set::iterator i;
+    cout << "Words starting from square (0, 0): \n";
+    for (i = bs.ws.begin(); i != bs.ws.end(); i++)
+    {
+        cout << *i << '\n';
+    }
 }
 
 int main() {
     test_is_not_on_board();
     test_make_step();
     test_do_step();
+    test_gather_words_from_square();
 }
