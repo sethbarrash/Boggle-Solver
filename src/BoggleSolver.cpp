@@ -29,7 +29,7 @@ SolutionStep BoggleSolver::make_step(uint8_t xnew, uint8_t ynew, SolutionStep st
     char letter = board[xnew][ynew];
     uint8_t new_depth = step.depth + 1;
     VocabNodePtr new_vocab_node_ptr = step.v->children[letter-ascii_a];
-    set<pair<uint8_t, uint8_t>> new_squares_used = step.squares_used;
+    coord_set new_squares_used = step.squares_used;
     new_squares_used.insert({xnew, ynew});
 
     SolutionStep new_step = {
@@ -89,7 +89,7 @@ void BoggleSolver::do_step(SolutionStep step) {
 SolutionStep BoggleSolver::make_first_step(uint8_t x, uint8_t y) {
     char letter = board[x][y];
     VocabNodePtr vocab_node_ptr = t.root->children[letter - ascii_a];
-    set<pair<uint8_t, uint8_t>> squares_used;
+    coord_set squares_used;
     squares_used.insert({x, y});
     SolutionStep first_step = {x, y, 0, vocab_node_ptr, string(t.max_word_length, 0), squares_used};
     first_step.word_so_far[0] = letter;

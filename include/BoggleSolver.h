@@ -12,6 +12,7 @@ using std::queue;
 using std::string;
 
 typedef set<string> word_set;
+typedef set<pair<uint8_t, uint8_t>> coord_set;
 
 static char DEFAULT_VOCAB_FILE [100] = "boggleWords.txt";
 static int XADJ [8] = {-1, -1, -1,  0,  0,  1,  1,  1};
@@ -23,7 +24,7 @@ struct SolutionStep {
     uint8_t depth;
     VocabNodePtr v;
     string word_so_far;
-    set<pair<uint8_t, uint8_t>> squares_used;
+    coord_set squares_used;
 };
 
 bool is_not_on_board(uint8_t x, uint8_t y);

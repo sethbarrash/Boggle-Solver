@@ -5,7 +5,8 @@
 
 using std::cout;
 
-void test_is_not_on_board() {
+void test_is_not_on_board()
+{
     assert(is_not_on_board(-1, -1) == 1);
     assert(is_not_on_board(-1, 0) == 1);
     assert(is_not_on_board(-1, 1) == 1);
@@ -38,12 +39,13 @@ void test_is_not_on_board() {
     assert(is_not_on_board(4, 4) == 1);
 }
 
-void test_make_step() {
+void test_make_step()
+{
     BoggleSolver bs(board0);
     assert(bs.ws.empty());
     assert(bs.q.empty());
     SolutionStep first_step = bs.make_first_step(0, 0);
-    set<pair<uint8_t, uint8_t>> expected_squares_used;
+    coord_set expected_squares_used;
     assert(expected_squares_used.empty());
     expected_squares_used.insert({0, 0});
 
@@ -69,7 +71,7 @@ void test_make_step() {
     assert(bs.ws.empty());
 
     SolutionStep step_0_2 = bs.make_step(0, 2, step_0_1);
-    set<pair<uint8_t, uint8_t>> expected_squares_0_2 = expected_squares_used;
+    coord_set expected_squares_0_2 = expected_squares_used;
     expected_squares_0_2.insert({0, 2});
 
     assert(bs.could_lead_to_new_words(0, 2, step_0_1));
@@ -84,7 +86,7 @@ void test_make_step() {
     assert(bs.ws.count("arg") == 1);
 
     SolutionStep step_1_1 = bs.make_step(1, 1, step_0_1);
-    set<pair<uint8_t, uint8_t>> expected_squares_1_1 = expected_squares_used;
+    coord_set expected_squares_1_1 = expected_squares_used;
     expected_squares_1_1.insert({1, 1});
 
     assert(bs.could_lead_to_new_words(1, 1, step_0_1));
@@ -99,12 +101,13 @@ void test_make_step() {
     assert(bs.ws.count("are") == 1);
 }
 
-void test_do_step() {
+void test_do_step()
+{
     BoggleSolver bs(board0);
     assert(bs.ws.empty());
     assert(bs.q.empty());
     SolutionStep first_step = bs.make_first_step(0, 0);
-    set<pair<uint8_t, uint8_t>> expected_squares_used;
+    coord_set expected_squares_used;
     assert(expected_squares_used.empty());
     expected_squares_used.insert({0, 0});
 
@@ -121,7 +124,7 @@ void test_do_step() {
     assert(bs.ws.empty());
 
     SolutionStep step = bs.q.front();
-    set<pair<uint8_t, uint8_t>> expected_squares_0_1 = expected_squares_used;
+    coord_set expected_squares_0_1 = expected_squares_used;
     expected_squares_0_1.insert({0, 1});
 
     assert(step.x == 0);
@@ -134,7 +137,7 @@ void test_do_step() {
     bs.q.pop();
 
     step = bs.q.front();
-    set<pair<uint8_t, uint8_t>> expected_squares_1_0 = expected_squares_used;
+    coord_set expected_squares_1_0 = expected_squares_used;
     expected_squares_1_0.insert({1, 0});
 
     assert(step.x == 1);
@@ -147,7 +150,7 @@ void test_do_step() {
     bs.q.pop();
 
     step = bs.q.front();
-    set<pair<uint8_t, uint8_t>> expected_squares_1_1 = expected_squares_used;
+    coord_set expected_squares_1_1 = expected_squares_used;
     expected_squares_1_1.insert({1, 1});
 
     assert(step.x == 1);
@@ -156,6 +159,11 @@ void test_do_step() {
     assert(step.v);
     assert(step.word_so_far == "ae");
     assert(step.squares_used == expected_squares_1_1);
+}
+
+void test_gather_words_from_square()
+{
+    
 }
 
 int main() {
