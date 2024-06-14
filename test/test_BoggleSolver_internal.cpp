@@ -125,7 +125,7 @@ void test_do_step() {
     expected_squares_0_1.insert({0, 1});
 
     assert(step.x == 0);
-    assert(step.y == 2);
+    assert(step.y == 1);
     assert(step.depth == 1);
     assert(step.v);
     assert(step.word_so_far == "ar");
@@ -135,4 +135,5 @@ void test_do_step() {
 int main() {
     test_is_not_on_board();
     test_make_step();
+    test_do_step();
 }
