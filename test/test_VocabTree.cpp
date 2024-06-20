@@ -64,5 +64,6 @@ int main() {
     assert(t.is_word(bathrooms));
     char characterization [20] = "characterization";
     assert(t.is_word(characterization));
+    cout << "Max word length = " << t.max_word_length << '\n';
     assert(t.max_word_length == 16);
 }

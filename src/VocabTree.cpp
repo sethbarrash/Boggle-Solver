@@ -26,7 +26,7 @@ bool is_valid_boggle_word(char* word) {
 void VocabTree::add_word(char* word) {
     char* letter_ptr = word;
     VocabNodePtr vnode = root;
-    uint8_t letter_idx, word_length = 0;
+    int letter_idx, word_length = 0;
 
     while (*letter_ptr) {
         letter_idx = *(letter_ptr++) - ascii_a;
@@ -54,13 +54,16 @@ void VocabTree::add_file(char* inputFile) {
 }
 
 void VocabTree::delete_subtree(VocabNodePtr subtree) {
-    if (subtree)
-        for (int i = 0; i < LENGTH_OF_ALPHABET; i++)
-            delete_subtree(subtree->children[i]);
+    for (int i = 0; i < LENGTH_OF_ALPHABET; i++)
+    {
+        if (subtree->children[i]) delete_subtree(subtree->children[i]);
+    }
+    delete subtree;
 }
 
 VocabTree::VocabTree() {
     root = new_node();
+    max_word_length = 0;
 }
 
 VocabTree::VocabTree(char* inputFile) {
@@ -86,5 +89,5 @@ bool VocabTree::is_word(char* w) {
 }
 
 VocabTree::~VocabTree() {
-    delete_subtree(root);
+    if (root) delete_subtree(root);
 }
