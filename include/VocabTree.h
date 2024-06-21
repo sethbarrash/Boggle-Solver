@@ -16,7 +16,6 @@ struct VocabNode {
 };
 typedef VocabNode* VocabNodePtr;
 
-VocabNode* new_node();
 
 bool is_valid_boggle_word(char* word);
 
@@ -30,6 +29,7 @@ class VocabTree {
         ~VocabTree();
 
     private:
+        VocabNode* new_node();
         void add_word(char* word);
         void add_file(char* inputFile);
         void delete_subtree(VocabNodePtr subtree);

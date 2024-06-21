@@ -1,9 +1,9 @@
 #include <cstring>
 #include "VocabTree.h"
 
-VocabNode* new_node() {
+VocabNode* VocabTree::new_node() {
     VocabNode* x = new VocabNode;
-    *x = {{0},0};
+    *x = {{0}, 0};
     return x;
 }
 
