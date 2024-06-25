@@ -1,3 +1,4 @@
+#include <iostream>
 #include "BoggleSolver.h"
 #include "VocabTree.h"
 
@@ -5,10 +6,10 @@ BoggleSolver::BoggleSolver(char input_board [][4]) {
     for (int i=0; i<4; i++)
         for (int j=0; j<4; j++)
             board[i][j] = input_board[i][j];
-    t = VocabTree(DEFAULT_VOCAB_FILE);
+    t = new VocabTree(DEFAULT_VOCAB_FILE);
 }
 
-BoggleSolver::BoggleSolver(char input_board [][4], VocabTree wt) {
+BoggleSolver::BoggleSolver(char input_board [][4], VocabTree* wt) {
     for (int i=0; i<4; i++)
         for (int j=0; j<4; j++)
             board[i][j] = input_board[i][j];
@@ -21,7 +22,7 @@ void BoggleSolver::add_board(char (*input_board)[4]) {
             board[i][j] = input_board[i][j];
 }
 
-void BoggleSolver::add_VocabTree(VocabTree wt) {
+void BoggleSolver::add_VocabTree(VocabTree* wt) {
     t = wt;
 }
 
@@ -88,10 +89,10 @@ void BoggleSolver::do_step(SolutionStep step) {
 
 SolutionStep BoggleSolver::make_first_step(uint8_t x, uint8_t y) {
     char letter = board[x][y];
-    VocabNodePtr vocab_node_ptr = t.root->children[letter - ascii_a];
+    VocabNodePtr vocab_node_ptr = t->root->children[letter - ascii_a];
     coord_set squares_used;
     squares_used.insert({x, y});
-    SolutionStep first_step = {x, y, 0, vocab_node_ptr, string(t.max_word_length, 0), squares_used};
+    SolutionStep first_step = {x, y, 0, vocab_node_ptr, string(t->max_word_length, 0), squares_used};
     first_step.word_so_far[0] = letter;
     first_step.word_so_far.resize(1);
     return first_step;

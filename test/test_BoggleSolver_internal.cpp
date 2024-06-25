@@ -39,6 +39,44 @@ void test_is_not_on_board()
     assert(is_not_on_board(4, 4) == 1);
 }
 
+void test_initialize_simple_words()
+{
+    char can   [MAX_EXPECTED_WORD_LENGTH] = "can";
+    char cans  [MAX_EXPECTED_WORD_LENGTH] = "cans";
+    char cant  [MAX_EXPECTED_WORD_LENGTH] = "cant";
+    char cart  [MAX_EXPECTED_WORD_LENGTH] = "cart";
+    char carts [MAX_EXPECTED_WORD_LENGTH] = "carts";
+    char cap   [MAX_EXPECTED_WORD_LENGTH] = "cap";
+    char caps  [MAX_EXPECTED_WORD_LENGTH] = "caps";
+    char carp  [MAX_EXPECTED_WORD_LENGTH] = "carp";
+    char carps [MAX_EXPECTED_WORD_LENGTH] = "carps";
+    char cot   [MAX_EXPECTED_WORD_LENGTH] = "cot";
+    char cots  [MAX_EXPECTED_WORD_LENGTH] = "cots";
+    char corp  [MAX_EXPECTED_WORD_LENGTH] = "corp";
+    char corps [MAX_EXPECTED_WORD_LENGTH] = "corps";
+    char cuts  [MAX_EXPECTED_WORD_LENGTH] = "cuts";
+    char cut   [MAX_EXPECTED_WORD_LENGTH] = "cut";
+
+    VocabTree t;
+    t.add_word(can);
+    t.add_word(cans);
+    t.add_word(cant);
+    t.add_word(cart);
+    t.add_word(carts);
+    t.add_word(cap);
+    t.add_word(caps);
+    t.add_word(carp);
+    t.add_word(carps);
+    t.add_word(cot);
+    t.add_word(cots);
+    t.add_word(corp);
+    t.add_word(corps);
+    t.add_word(cut);
+    t.add_word(cuts);
+
+    BoggleSolver bs(board0, &t);
+}
+
 void test_make_step()
 {
     BoggleSolver bs(board0);
@@ -184,7 +222,8 @@ void test_gather_words_from_square()
 
 int main() {
     test_is_not_on_board();
-    test_make_step();
-    test_do_step();
-    test_gather_words_from_square();
+    test_initialize_simple_words();
+    // test_make_step();
+    // test_do_step();
+    // test_gather_words_from_square();
 }

@@ -33,15 +33,15 @@ bool square_already_used(uint8_t xnew, uint8_t ynew, SolutionStep step);
 class BoggleSolver {
     public:
         BoggleSolver(char board [][4]);
-        BoggleSolver(char board [][4], VocabTree t);
+        BoggleSolver(char board [][4], VocabTree* t);
         void add_board(char (*board)[4]);
-        void add_VocabTree(VocabTree t);
+        void add_VocabTree(VocabTree* t);
         word_set solve_board();
         word_set solve_board(char (*board)[4]);
 
     private:
         char board [4][4];
-        VocabTree t;
+        VocabTree* t;
         queue<SolutionStep> q;
         word_set ws;
 

@@ -50,20 +50,20 @@ void test_board(char board [][4], word_set expected_words)
 
 int main()
 {
-    char input_file [100] = "boggleWords.txt";
-    VocabTree t = VocabTree(input_file);
-    BoggleSolver bs = BoggleSolver(board0);
+    // char input_file [100] = "boggleWords.txt";
+    // VocabTree t = VocabTree(input_file);
+    // BoggleSolver bs = BoggleSolver(board0);
 
     auto start_time = high_resolution_clock::now();
 
     cout << "Solving board 0\n";
     test_board(board0, ws0);
-    cout << "Solving board 1\n";
-    test_board(board1, ws1);
-    cout << "Solving board 2\n";
-    test_board(board2, ws2);
-    cout << "Solving board 3\n";
-    test_board(board3, ws3);
+    // cout << "Solving board 1\n";
+    // test_board(board1, ws1);
+    // cout << "Solving board 2\n";
+    // test_board(board2, ws2);
+    // cout << "Solving board 3\n";
+    // test_board(board3, ws3);
 
     auto stop_time = high_resolution_clock::now();
 

@@ -1,13 +1,16 @@
 #include <cstring>
+#include <iostream>
 #include "VocabTree.h"
 
-VocabNode* VocabTree::new_node() {
+VocabNode* VocabTree::new_node()
+{
     VocabNode* x = new VocabNode;
     *x = {{0}, 0};
     return x;
 }
 
-bool is_valid_boggle_word(char* word) {
+bool is_valid_boggle_word(char* word)
+{
     if (strlen(word) < MIN_BOGGLE_WORD_LENGTH) return false;
     char* letter_ptr = word;
     uint8_t n_boggle_squares = 0;
@@ -23,7 +26,8 @@ bool is_valid_boggle_word(char* word) {
     return true;
 }
 
-void VocabTree::add_word(char* word) {
+void VocabTree::add_word(char* word)
+{
     char* letter_ptr = word;
     VocabNodePtr vnode = root;
     int letter_idx, word_length = 0;
@@ -40,7 +44,8 @@ void VocabTree::add_word(char* word) {
     vnode->is_end_of_word = 1;
 }
 
-void VocabTree::add_file(char* inputFile) {
+void VocabTree::add_file(char* inputFile)
+{
     ifstream in_stream;
     in_stream.open(inputFile);
 
@@ -53,7 +58,8 @@ void VocabTree::add_file(char* inputFile) {
     in_stream.close();    
 }
 
-void VocabTree::delete_subtree(VocabNodePtr subtree) {
+void VocabTree::delete_subtree(VocabNodePtr subtree)
+{
     for (int i = 0; i < LENGTH_OF_ALPHABET; i++)
     {
         if (subtree->children[i]) delete_subtree(subtree->children[i]);
@@ -61,17 +67,20 @@ void VocabTree::delete_subtree(VocabNodePtr subtree) {
     delete subtree;
 }
 
-VocabTree::VocabTree() {
+VocabTree::VocabTree()
+{
     root = new_node();
     max_word_length = 0;
 }
 
-VocabTree::VocabTree(char* inputFile) {
+VocabTree::VocabTree(char* inputFile)
+{
     root = new_node();
     add_file(inputFile);
 }
 
-bool VocabTree::is_word(char* w) {
+bool VocabTree::is_word(char* w)
+{
     if (!root) return 0;
     char* i = w;
     VocabNodePtr vnode = root;
@@ -88,6 +97,7 @@ bool VocabTree::is_word(char* w) {
     return 0;
 }
 
-VocabTree::~VocabTree() {
+VocabTree::~VocabTree() 
+{
     if (root) delete_subtree(root);
 }
