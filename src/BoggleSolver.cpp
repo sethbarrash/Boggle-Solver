@@ -43,6 +43,13 @@ SolutionStep BoggleSolver::make_step(uint8_t xnew, uint8_t ynew, SolutionStep st
     };
     new_step.word_so_far.push_back(letter);
 
+    if (letter == 'q')
+    {
+        new_step.word_so_far.push_back('q');
+        new_step.v = new_vocab_node_ptr->children['u' - ascii_a];
+        new_step.depth++;
+    }
+
     if (new_vocab_node_ptr->is_end_of_word)
         ws.insert(new_step.word_so_far);
     
@@ -95,6 +102,14 @@ SolutionStep BoggleSolver::make_first_step(uint8_t x, uint8_t y) {
     SolutionStep first_step = {x, y, 0, vocab_node_ptr, string(t->max_word_length, 0), squares_used};
     first_step.word_so_far[0] = letter;
     first_step.word_so_far.resize(1);
+
+    if (letter == 'q')
+    {
+        first_step.word_so_far.push_back('q');
+        first_step.v = vocab_node_ptr->children['u' - ascii_a];
+        first_step.depth++;
+    }
+
     return first_step;
 }
 
