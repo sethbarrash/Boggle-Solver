@@ -2,6 +2,8 @@
 #include "BoggleSolver.h"
 #include "VocabTree.h"
 
+short U_IDX = 20;
+
 BoggleSolver::BoggleSolver(char input_board [][4]) {
     for (int i=0; i<4; i++)
         for (int j=0; j<4; j++)
@@ -45,7 +47,7 @@ SolutionStep BoggleSolver::make_step(uint8_t xnew, uint8_t ynew, SolutionStep st
 
     if (letter == 'q')
     {
-        new_step.word_so_far.push_back('q');
+        new_step.word_so_far.push_back('u');
         new_step.v = new_vocab_node_ptr->children['u' - ascii_a];
         new_step.depth++;
     }
@@ -105,8 +107,8 @@ SolutionStep BoggleSolver::make_first_step(uint8_t x, uint8_t y) {
 
     if (letter == 'q')
     {
-        first_step.word_so_far.push_back('q');
-        first_step.v = vocab_node_ptr->children['u' - ascii_a];
+        first_step.word_so_far.push_back('u');
+        first_step.v = vocab_node_ptr->children[U_IDX];
         first_step.depth++;
     }
 

@@ -31,6 +31,14 @@ char board3[4][4] = {
     {'r', 'n', 'h', 's'}
 };
 
+char board4[4][4] = {
+    {'q', 'a', 'r', 't'},
+    {'f', 'a', 'x', 'm'},
+    {'r', 'o', 'e', 'g'},
+    {'r', 'n', 'h', 's'}
+};
+
+
 word_set ws0 = {
     "and",
     "are",
@@ -214,6 +222,51 @@ word_set ws3 = {
     "tax",
     "taxes",
     "tom",
+};
+
+word_set ws4 =
+{
+    "aaron",
+    "aqua",
+    "arm",
+    "art",
+    "ear",
+    "earn",
+    "ext",
+    "extra",
+    "far",
+    "farm",
+    "fax",
+    "for",
+    "fox",
+    "gear",
+    "gem",
+    "gen",
+    "geo",
+    "gmt",
+    "hear",
+    "heart",
+    "hon",
+    "horn",
+    "men",
+    "mesh",
+    "near",
+    "neo",
+    "next",
+    "nhs",
+    "nor",
+    "oem",
+    "one",
+    "ones",
+    "quart",
+    "ron",
+    "sea",
+    "sen",
+    "seo",
+    "sex",
+    "sexo",
+    "she",
+    "shoe",
 };
 
 #endif

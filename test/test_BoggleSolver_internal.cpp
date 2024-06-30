@@ -211,19 +211,30 @@ void test_gather_words_from_square()
     assert(bs.ws.count("are") == 1);
     assert(bs.ws.count("arg") == 1);
     assert(bs.q.empty());
+}
 
-    word_set::iterator i;
-    cout << "Words starting from square (0, 0): \n";
-    for (i = bs.ws.begin(); i != bs.ws.end(); i++)
-    {
-        cout << *i << '\n';
-    }
+void test_quart()
+{
+    BoggleSolver bs(board4);
+    SolutionStep first_step = bs.make_first_step(0, 0);
+    coord_set expected_squares_used;
+    assert(expected_squares_used.empty());
+    expected_squares_used.insert({0, 0});
+
+    assert(first_step.x == 0);
+    assert(first_step.y == 0);
+    assert(first_step.depth == 1);
+    assert(first_step.v);
+    assert(first_step.word_so_far == "qu");
+    assert(first_step.squares_used == expected_squares_used);
+    assert(bs.ws.empty());
 }
 
 int main() {
     test_is_not_on_board();
     test_initialize_simple_words();
-    // test_make_step();
-    // test_do_step();
-    // test_gather_words_from_square();
+    test_make_step();
+    test_do_step();
+    test_gather_words_from_square();
+    test_quart();
 }
