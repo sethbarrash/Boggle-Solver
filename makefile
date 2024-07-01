@@ -28,3 +28,6 @@ check: test_binary_search test_mergesort test_VocabTree test_BoggleTree test_Bog
 	./test_BoggleTree
 	./test_BoggleSolver_internal
 	./test_BoggleSolver
+
+clean:
+	rm *.o test_*
